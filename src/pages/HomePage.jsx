@@ -1,7 +1,7 @@
 import Hero from '../components/Hero'
 import Membership from '../components/Membership'
 import DeviceAppShowcase from '../components/DeviceAppShowcase'
-import Press from '../components/Press'
+import Blog from '../components/Blog'
 import Waitlist from '../components/Waitlist'
 
 export default function HomePage() {
@@ -10,7 +10,7 @@ export default function HomePage() {
       <Hero />
       <Membership />
       <DeviceAppShowcase />
-      <Press />
+      <Blog />
       <Waitlist />
     </>
   )

@@ -40,7 +40,7 @@ export default function Hero() {
 
         <motion.h1
           {...reveal(0.15)}
-          className="mt-6 font-display text-7xl leading-[0.95] font-medium tracking-tight text-cream sm:text-8xl lg:text-[8.5rem]"
+          className="mt-6 font-sans text-7xl leading-[0.98] font-semibold tracking-tight text-cream sm:text-8xl lg:text-[7.5rem]"
         >
           Find <em className="font-normal text-gold-light">anything.</em>
         </motion.h1>

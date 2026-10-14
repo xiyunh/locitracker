@@ -23,6 +23,7 @@ const columns = [
       { label: 'Sticks to anything', to: '/features' },
       { label: 'The Loci network', to: '/features' },
       { label: 'A day with Loci', to: '/experience' },
+      { label: 'Blog', to: '/blog' },
     ],
   },
   {
