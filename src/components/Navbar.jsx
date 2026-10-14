@@ -20,7 +20,7 @@ function DropdownPanel({ item }) {
       role="menu"
       aria-label={`${item.label} menu`}
     >
-      <div className="border-y border-white/12 bg-charcoal-light/75 shadow-[0_40px_80px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
+      <div className="border-y border-white/12 bg-charcoal-light/[0.96] shadow-[0_40px_80px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
         <AnimatePresence mode="wait">
           <motion.div
             key={item.label}
@@ -325,7 +325,7 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             aria-hidden="true"
-            className="fixed inset-0 -z-10 bg-black/55 backdrop-blur-[6px]"
+            className="fixed inset-0 -z-10 bg-black/60 backdrop-blur-xl"
             onMouseEnter={() => setActiveMenu(null)}
             onClick={() => setActiveMenu(null)}
           />

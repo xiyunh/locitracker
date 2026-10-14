@@ -25,7 +25,7 @@ export default function Blog() {
 
         <ScrollReveal variant="fade" delay={1} className="marquee mt-12 overflow-hidden border-y border-white/10 py-5">
           <div className="marquee-track">
-            {[...posts, ...posts].map((p, i) => (
+            {[...posts, ...posts, ...posts, ...posts, ...posts, ...posts].map((p, i) => (
               <span
                 key={`${p.slug}-${i}`}
                 className="flex items-center gap-10 pr-10 font-display text-2xl text-cream/70 italic"
