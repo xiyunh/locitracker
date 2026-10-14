@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-logo: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --color-cream: #f5f0e8;
+  --color-cream-muted: #a8a090;
+  --color-brand: #11385b;
+  --color-brand-light: #3d7ab5;
+  --color-brand-muted: #5a9fd4;
+  --color-gold: #d2b478;
+  --color-gold-light: #d7bda2;
+  --color-charcoal: #071018;
+  --color-charcoal-light: #0d1f2d;
+  --color-charcoal-mid: #152a3d;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-charcoal);
+  color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-gold) 40%, transparent);
+  color: var(--color-cream);
+}
+
+.dropdown-drop {
+  animation: dropdown-drop 300ms cubic-bezier(0.2, 0.85, 0.25, 1) both;
+  transition-timing-function: cubic-bezier(0.2, 0.85, 0.25, 1);
+  transform-origin: top;
+}
+
+@keyframes dropdown-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-1.25rem) scaleY(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+html {
+  color-scheme: dark;
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-gold) 60%, transparent);
+  outline-offset: 2px;
+}
+
+/* Card hover lift used on product and feature tiles */
+.card-lift {
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+/* Soft brand glow behind hero / page headers */
+.glow-top {
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(17, 56, 91, 0.55) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(210, 180, 120, 0.08) 0%, transparent 40%);
+}
+
+/* Subtle grid texture for the hero */
+.grid-texture {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ─── Cinematic layer ───────────────────────────────────────────────── */
+
+/* Film grain over the whole site */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+/* Edge vignette */
+.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%, transparent 50%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+/* Slow drifting spotlight */
+@keyframes spotlight-drift {
+  0%, 100% { transform: translate3d(-8%, -6%, 0) scale(1); }
+  50% { transform: translate3d(6%, 5%, 0) scale(1.08); }
+}
+
+.spotlight {
+  position: absolute;
+  width: 70vw;
+  height: 70vw;
+  max-width: 1100px;
+  max-height: 1100px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(61, 122, 181, 0.38) 0%, rgba(17, 56, 91, 0.18) 35%, transparent 65%);
+  filter: blur(40px);
+  animation: spotlight-drift 20s ease-in-out infinite;
+}
+
+.spotlight-gold {
+  background: radial-gradient(circle, rgba(210, 180, 120, 0.16) 0%, rgba(210, 180, 120, 0.05) 40%, transparent 65%);
+  animation-duration: 26s;
+  animation-direction: reverse;
+}
+
+/* Gold hairline used under eyebrows and between editorial rows */
+.hairline-gold {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(210, 180, 120, 0.7), rgba(210, 180, 120, 0));
+}
+
+/* Light sweep across product faces */
+@keyframes sheen {
+  0% { transform: translateX(-140%) skewX(-18deg); }
+  35%, 100% { transform: translateX(180%) skewX(-18deg); }
+}
+
+.sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+  animation: sheen 7s ease-in-out 1.2s infinite;
+  pointer-events: none;
+}
+
+/* Marquee strip */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 48s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Serif display numerals */
+.numeral {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 2.75rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight,
+  .sheen::after,
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* ─── Gold shooting-star scrollbar ──────────────────────────────────── */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gold) var(--color-charcoal);
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  /* Bright star head with a comet tail fading behind it */
+  background: linear-gradient(
+    180deg,
+    #f3ebe1 0%,
+    #d7bda2 12%,
+    #d2b478 30%,
+    rgba(210, 180, 120, 0.45) 62%,
+    rgba(210, 180, 120, 0.08) 100%
+  );
+  box-shadow:
+    0 0 10px rgba(210, 180, 120, 0.75),
+    0 0 3px rgba(255, 248, 225, 0.9);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #f8f2ea 0%,
+    #e5d5c2 14%,
+    #d7bda2 34%,
+    rgba(210, 180, 120, 0.55) 64%,
+    rgba(210, 180, 120, 0.12) 100%
+  );
+  box-shadow:
+    0 0 14px rgba(210, 180, 120, 0.95),
+    0 0 5px rgba(255, 248, 225, 1);
+}
