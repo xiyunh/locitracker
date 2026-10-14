@@ -9,6 +9,7 @@ import CartPage from './pages/CartPage'
 import LegalPage from './pages/LegalPage'
 import AccountPage from './pages/AccountPage'
 import VerifiedPage from './pages/VerifiedPage'
+import BlogPage from './pages/BlogPage'
 import { StoreProvider } from './context/StoreContext'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="shop" element={<ShopPage />} />
           <Route path="features" element={<FeaturesPage />} />
+          <Route path="blog" element={<BlogPage />} />
           <Route path="experience" element={<ExperiencePage />} />
           <Route path="pre-order" element={<PreOrderPage />} />
           <Route path="cart" element={<CartPage />} />

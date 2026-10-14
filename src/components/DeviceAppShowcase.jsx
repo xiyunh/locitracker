@@ -1,4 +1,6 @@
-import { Bell, Bluetooth, MapPinned, Navigation, Radar, ShieldCheck, Volume2 } from 'lucide-react'
+import { Bell, Bluetooth, MapPinned, Radar, ShieldCheck, Volume2 } from 'lucide-react'
+import appHistory from '../assets/app-history.png'
+import appProfile from '../assets/app-profile.png'
 import ScrollReveal from './ScrollReveal'
 import { Eyebrow } from './ui'
 
@@ -61,46 +63,23 @@ function FeatureRow({ feature, index }) {
 
 function AppMockup() {
   return (
-    <ScrollReveal
-      variant="right"
-      delay={1}
-      className="relative mx-auto w-full max-w-sm overflow-hidden rounded-[2rem] border border-white/15 bg-charcoal shadow-2xl shadow-black/40"
-    >
-      <div className="border-b border-white/10 bg-brand/70 px-5 py-4">
-        <div className="flex items-center justify-between">
-          <span className="text-xs tracking-[0.25em] text-cream/70 uppercase">Loci App</span>
-          <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.7)]" />
-        </div>
-        <h3 className="mt-5 font-display text-3xl font-medium text-cream">Your essentials</h3>
-      </div>
-
-      <div className="p-5">
-        <div className="relative mb-5 flex h-44 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-brand/70 to-charcoal-mid">
-          <div className="absolute h-36 w-36 rounded-full border border-gold/20" />
-          <div className="absolute h-24 w-24 rounded-full border border-gold/30" />
-          <div className="absolute h-3 w-3 rounded-full bg-gold shadow-[0_0_20px_rgba(210,180,120,0.9)]" />
-          <Navigation size={38} strokeWidth={1.2} className="relative z-10 text-cream/80" />
-        </div>
-
-        <div className="space-y-3">
-          {[
-            ['Keys', '3 ft away', 'Nearby'],
-            ['Backpack', 'With you', 'Connected'],
-            ['Carry-on', 'Terminal 2', 'Last seen 2m ago'],
-          ].map(([name, location, status]) => (
-            <div key={name} className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-sm text-cream">{name}</span>
-                <span className="text-xs text-gold-light">{location}</span>
-              </div>
-              <div className="mt-2 flex items-center gap-2 text-xs text-cream/55">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                {status}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+    <ScrollReveal variant="right" delay={1} className="relative mx-auto w-full max-w-sm">
+      {/* real screens from the app build */}
+      <img
+        src={appProfile}
+        alt="Loci app — profile and settings screen"
+        className="absolute -right-6 top-10 hidden w-56 -rotate-6 rounded-[1.6rem] border border-white/10 opacity-60 shadow-2xl shadow-black/50 sm:block"
+        loading="lazy"
+      />
+      <img
+        src={appHistory}
+        alt="Loci app — sighting history with the sightings dial"
+        className="relative z-10 mx-auto w-64 rounded-[1.8rem] border border-white/15 shadow-2xl shadow-black/60"
+        loading="lazy"
+      />
+      <p className="relative z-10 mt-5 text-center text-[0.6rem] tracking-[0.3em] text-cream-muted uppercase">
+        Real screens · Loci app beta
+      </p>
     </ScrollReveal>
   )
 }
