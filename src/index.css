@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: "Montserrat", system-ui, sans-serif;
-  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   --font-logo: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   --color-cream: #f5f0e8;
   --color-cream-muted: #a8a090;
