@@ -1,7 +1,7 @@
 // Shared class recipes so every button, input, badge, and panel reads the same.
 
 const buttonBase =
-  'inline-flex items-center justify-center gap-2 rounded-md font-medium tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-40'
+  'inline-flex items-center justify-center gap-2 rounded-md font-medium tracking-wide whitespace-nowrap transition-colors disabled:cursor-not-allowed disabled:opacity-40'
 
 const buttonVariants = {
   primary: 'bg-cream text-brand hover:bg-gold',
@@ -24,16 +24,16 @@ export function buttonClass(variant = 'primary', size = 'md', extra = '') {
 }
 
 export const inputClass =
-  'min-h-12 w-full rounded-md border border-white/15 bg-white/5 px-4 text-sm text-cream placeholder:text-cream/35 transition-colors focus:border-gold/50 focus:outline-none focus:ring-2 focus:ring-gold/20'
+  'glass-soft min-h-12 w-full rounded-md px-4 text-sm text-cream placeholder:text-cream/35 transition-colors focus:border-gold/50 focus:outline-none focus:ring-2 focus:ring-gold/20'
 
 export const labelClass = 'text-xs font-medium tracking-wide text-cream/60'
 
 export const badgeClass =
   'inline-flex items-center rounded-md border border-gold/30 bg-gold/10 px-2.5 py-1 text-[0.65rem] font-medium tracking-widest text-gold uppercase'
 
-export const panelClass = 'rounded-xl border border-white/10 bg-charcoal-mid'
+export const panelClass = 'glass rounded-xl'
 
-export const tileClass = 'rounded-lg border border-white/10 bg-white/[0.03] p-4'
+export const tileClass = 'glass-soft rounded-lg p-4'
 
 export const iconButtonClass =
   'inline-flex h-10 w-10 items-center justify-center rounded-md text-cream-muted transition-colors hover:bg-white/5 hover:text-gold-light'

@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
 import { Button, SectionHeading } from './ui'
 import { badgeClass } from '../lib/ui'
+import Placeholder from './Placeholder'
 
 const featuredProducts = [
   {
@@ -9,6 +10,7 @@ const featuredProducts = [
     detail: 'For keys, passports, wallets, and everyday carry.',
     price: '$29',
     to: '/shop',
+    photo: 'PHOTO — single sticker on house keys',
   },
   {
     name: 'Loci Sticker 4-Pack',
@@ -16,6 +18,7 @@ const featuredProducts = [
     price: '$99',
     badge: 'Save $17',
     to: '/shop',
+    photo: 'PHOTO — 4-pack spread on a table',
   },
   {
     name: 'Pre Order',
@@ -23,6 +26,7 @@ const featuredProducts = [
     price: 'From $29',
     cta: 'Reserve',
     to: '/pre-order',
+    photo: 'PHOTO — first-drop packaging',
   },
 ]
 
@@ -44,7 +48,7 @@ export default function Membership() {
                 to={product.to}
                 variant="up"
                 delay={index}
-                className="card-lift group flex min-h-64 flex-col justify-between rounded-xl border border-white/10 bg-charcoal/50 p-6 backdrop-blur-sm hover:border-gold/40"
+                className="glass card-lift group flex min-h-64 flex-col justify-between rounded-xl p-6 hover:border-gold/40"
               >
                 <span>
                   <span className="flex items-start justify-between gap-4">
@@ -55,6 +59,7 @@ export default function Membership() {
                   <span className="mt-3 block text-sm leading-relaxed text-cream/65">
                     {product.detail}
                   </span>
+                  <Placeholder label={product.photo} aspect="aspect-[16/9]" className="mt-5" />
                 </span>
 
                 <span className="mt-8 flex items-center justify-between gap-4 border-t border-white/10 pt-4">

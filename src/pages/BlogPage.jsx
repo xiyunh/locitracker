@@ -7,9 +7,10 @@ export default function BlogPage() {
   return (
     <div className="bg-charcoal">
       <PageHeader
-        eyebrow="Blog"
-        title="Notes from building Loci."
-        copy="Engineering, design, and the occasional failed prototype — written by the people making the sticker."
+        label="Blog"
+        title="Notes from building"
+        emphasis="Loci."
+        subtitle="Engineering, design, and the occasional failed prototype — written by the people making the sticker."
       />
       <div className="mx-auto max-w-3xl space-y-24 px-6 pb-28 lg:px-0">
         {posts.map((post, i) => (

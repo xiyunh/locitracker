@@ -46,7 +46,7 @@ export default function Hero() {
         <div className="flex flex-col justify-center">
           <motion.p
             {...reveal(0.05)}
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 text-[0.62rem] tracking-[0.22em] text-cream/70 uppercase backdrop-blur-sm"
+            className="glass-soft inline-flex w-fit items-center gap-2 rounded-full px-4 py-1.5 text-[0.62rem] tracking-[0.22em] text-cream/70 uppercase"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden="true" />
             The world&apos;s first sticker tracker

@@ -77,7 +77,7 @@ export default function Blog() {
                 type="button"
                 onClick={prev}
                 aria-label="Previous post"
-                className="rounded-md border border-white/10 p-3 text-cream-muted transition-colors hover:border-gold/30 hover:text-cream"
+                className="glass-soft rounded-md p-3 text-cream-muted transition-colors hover:border-gold/30 hover:text-cream"
               >
                 <ChevronLeft size={18} />
               </button>
@@ -85,7 +85,7 @@ export default function Blog() {
                 type="button"
                 onClick={next}
                 aria-label="Next post"
-                className="rounded-md border border-white/10 p-3 text-cream-muted transition-colors hover:border-gold/30 hover:text-cream"
+                className="glass-soft rounded-md p-3 text-cream-muted transition-colors hover:border-gold/30 hover:text-cream"
               >
                 <ChevronRight size={18} />
               </button>

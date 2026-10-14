@@ -10,6 +10,7 @@ import LegalPage from './pages/LegalPage'
 import AccountPage from './pages/AccountPage'
 import VerifiedPage from './pages/VerifiedPage'
 import BlogPage from './pages/BlogPage'
+import EnterprisePage from './pages/EnterprisePage'
 import { StoreProvider } from './context/StoreContext'
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="features" element={<FeaturesPage />} />
           <Route path="blog" element={<BlogPage />} />
           <Route path="experience" element={<ExperiencePage />} />
+          <Route path="enterprise" element={<EnterprisePage />} />
           <Route path="pre-order" element={<PreOrderPage />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="terms" element={<LegalPage page="terms" />} />

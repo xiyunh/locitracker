@@ -92,7 +92,7 @@ function FindMyMockup({ metrics, accent }) {
       <div className="space-y-3">
         {metrics.map((m, i) => (
           <ScrollReveal key={m.label} variant="left" delay={i + 2}>
-            <div className="rounded-xl bg-charcoal/60 p-4 backdrop-blur-sm">
+            <div className="glass-soft rounded-xl p-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs text-cream/60">{m.label}</span>
                 <span className="text-lg font-medium text-cream">{m.value}</span>

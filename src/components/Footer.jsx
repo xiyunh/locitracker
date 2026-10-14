@@ -24,6 +24,7 @@ const columns = [
       { label: 'The Loci network', to: '/features' },
       { label: 'A day with Loci', to: '/experience' },
       { label: 'Blog', to: '/blog' },
+      { label: 'For enterprises', to: '/enterprise' },
     ],
   },
   {

@@ -22,14 +22,14 @@ export const navItems = [
     ],
   },
   {
-    label: 'Experience',
-    to: '/experience',
-    summary: 'See how Loci fits into real moments throughout your day.',
+    label: 'For Enterprises',
+    to: '/enterprise',
+    summary: 'Track tools, fleets, and shared equipment with sticker-thin tags.',
     links: [
-      { label: 'Leaving home', description: 'Know keys and wallet are where they belong.', to: '/experience' },
-      { label: 'At the airport', description: 'Track carry-on and checked bags.', to: '/experience' },
-      { label: 'Keys misplaced', description: 'Sound and distance cues to the exact spot.', to: '/experience' },
-      { label: 'On a trip', description: 'Share location with family.', to: '/experience' },
+      { label: 'Equipment & tools', description: 'Tag shared gear so it comes back.', to: '/enterprise' },
+      { label: 'Fleet & logistics', description: 'Follow crates, cases, and kits between sites.', to: '/enterprise' },
+      { label: 'Teams at scale', description: 'Volume packs for every seat and site.', to: '/enterprise' },
+      { label: 'Talk to us', description: 'Join the pilot program for early fleets.', to: '/enterprise' },
     ],
   },
 ]

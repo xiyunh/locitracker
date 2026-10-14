@@ -64,7 +64,7 @@ function AppMockup() {
     <ScrollReveal
       variant="right"
       delay={1}
-      className="relative mx-auto w-full max-w-sm overflow-hidden rounded-[2rem] border border-white/15 bg-charcoal shadow-2xl shadow-black/40"
+      className="glass relative mx-auto w-full max-w-sm overflow-hidden rounded-[2rem] shadow-2xl shadow-black/40"
     >
       <div className="border-b border-white/10 bg-brand/70 px-5 py-4">
         <div className="flex items-center justify-between">
@@ -88,7 +88,7 @@ function AppMockup() {
             ['Backpack', 'With you', 'Connected'],
             ['Carry-on', 'Terminal 2', 'Last seen 2m ago'],
           ].map(([name, location, status]) => (
-            <div key={name} className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+            <div key={name} className="glass-soft rounded-lg p-4">
               <div className="flex items-center justify-between gap-4">
                 <span className="text-sm text-cream">{name}</span>
                 <span className="text-xs text-gold-light">{location}</span>

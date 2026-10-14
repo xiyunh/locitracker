@@ -20,7 +20,7 @@ function DropdownPanel({ item }) {
       role="menu"
       aria-label={`${item.label} menu`}
     >
-      <div className="border-y border-white/10 bg-charcoal-light/[0.98] shadow-[0_40px_80px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
+      <div className="border-y border-white/12 bg-charcoal-light/75 shadow-[0_40px_80px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
         <AnimatePresence mode="wait">
           <motion.div
             key={item.label}
@@ -302,7 +302,7 @@ export default function Navbar() {
     <header
       className={`fixed top-9 right-0 left-0 z-50 transition-[box-shadow,backdrop-filter] duration-300 ${
         scrolled || menuOpen || activeMenu
-          ? 'bg-brand/95 shadow-lg shadow-black/20 backdrop-blur-md'
+          ? 'bg-brand/70 shadow-lg shadow-black/20 backdrop-blur-xl'
           : 'bg-transparent'
       }`}
       onMouseEnter={() => {
@@ -387,7 +387,7 @@ export default function Navbar() {
       <AnimatePresence>{activeItem && <DropdownPanel item={activeItem} />}</AnimatePresence>
 
       {menuOpen && (
-        <div className="max-h-[calc(100vh-5rem)] overflow-y-auto border-t border-white/10 bg-brand px-6 py-2 md:hidden">
+        <div className="max-h-[calc(100vh-5rem)] overflow-y-auto border-t border-white/10 bg-brand/80 px-6 backdrop-blur-xl py-2 md:hidden">
           <ul>
             {navItems.map((item) => (
               <MobileNavSection key={item.label} item={item} onNavigate={closeMobile} />
