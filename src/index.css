@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "IBM Plex Mono", ui-monospace, monospace;
-  --font-logo: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "Montserrat", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-logo: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   --color-cream: #f5f0e8;
   --color-cream-muted: #a8a090;
   --color-brand: #11385b;
   --color-brand-light: #3d7ab5;
   --color-brand-muted: #5a9fd4;
-  --color-gold: #e4d8c0;
-  --color-gold-light: #efe7d6;
+  --color-gold: #d2b478;
+  --color-gold-light: #d7bda2;
   --color-charcoal: #071018;
   --color-charcoal-light: #0d1f2d;
   --color-charcoal-mid: #152a3d;

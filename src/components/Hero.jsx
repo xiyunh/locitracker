@@ -42,7 +42,7 @@ export default function Hero() {
           {...reveal(0.15)}
           className="mt-6 font-display text-7xl leading-[0.95] font-medium tracking-tight text-cream sm:text-8xl lg:text-[8.5rem]"
         >
-          Find <span className="text-gold-light">anything.</span>
+          Find <em className="font-normal text-gold-light">anything.</em>
         </motion.h1>
 
         <motion.p

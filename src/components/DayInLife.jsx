@@ -9,7 +9,7 @@ const moments = [
     id: 'morning',
     label: 'Leaving home',
     quote: 'I used to tear the house apart for my keys. Now I just open the Loci app.',
-    author: null,
+    author: 'Jussi L., Loci Customer',
     metrics: [
       { label: 'Keys', value: 'Home', color: 'bg-emerald-500' },
       { label: 'Wallet', value: 'Home', color: 'bg-emerald-500' },
@@ -33,7 +33,7 @@ const moments = [
     id: 'lost',
     label: 'Keys misplaced',
     quote: 'The sound and distance cues led me straight to the couch cushions.',
-    author: null,
+    author: 'Linda D., Loci Customer',
     metrics: [
       { label: 'Distance', value: '6 ft away', color: 'bg-brand-light' },
       { label: 'Direction', value: '→ Left', color: 'bg-brand-muted' },
@@ -45,7 +45,7 @@ const moments = [
     id: 'park',
     label: 'Kids at the park',
     quote: 'Peace of mind knowing the stroller tag is always trackable.',
-    author: null,
+    author: 'Rhonda C., Loci Customer',
     metrics: [
       { label: 'Stroller', value: 'Playground', color: 'bg-emerald-500' },
       { label: 'Last seen', value: '2 min ago', color: 'bg-brand-light' },
@@ -159,9 +159,12 @@ export default function DayInLife() {
               </h3>
               {moment.quote && (
                 <blockquote className="mt-8 border-l-2 border-gold/50 pl-6">
-                  <p className="font-display text-2xl leading-snug text-cream/80 lg:text-3xl">
+                  <p className="font-display text-3xl leading-snug text-cream/80 italic lg:text-4xl">
                     {moment.quote}
                   </p>
+                  <cite className="mt-4 block text-[0.7rem] tracking-[0.2em] text-cream-muted uppercase not-italic">
+                    {moment.author}
+                  </cite>
                 </blockquote>
               )}
               {!moment.quote && (
