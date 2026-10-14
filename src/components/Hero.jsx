@@ -63,7 +63,7 @@ export default function Hero() {
 
           <motion.p
             {...reveal(0.3)}
-            className="mt-8 max-w-sm text-sm leading-relaxed text-cream/60"
+            className="mt-8 max-w-sm text-sm leading-relaxed text-cream/50"
           >
             Loci is a tracker thin enough to live on a passport, a remote, or a
             bike frame — and a finding network that brings it back when it
@@ -84,10 +84,10 @@ export default function Hero() {
           <ul className="flex flex-row flex-wrap gap-8 lg:flex-col lg:gap-9">
             {stats.map((s, i) => (
               <motion.li key={s.value} {...reveal(0.4 + i * 0.12)}>
-                <p className="font-display text-5xl leading-none text-cream sm:text-6xl">
+                <p className="font-sans text-5xl leading-none font-light tracking-tight text-cream/75 sm:text-6xl">
                   {s.value}
                 </p>
-                <p className="mt-2 max-w-[13rem] text-xs leading-relaxed text-cream-muted lg:ml-auto">
+                <p className="mt-2.5 max-w-[12rem] text-[0.72rem] leading-relaxed text-cream/35 lg:ml-auto">
                   {s.label}
                 </p>
               </motion.li>
@@ -95,7 +95,7 @@ export default function Hero() {
           </ul>
 
           <motion.div {...reveal(0.85)} className="flex flex-col gap-5 lg:items-end">
-            <p className="max-w-xs text-sm leading-relaxed text-cream/60">
+            <p className="max-w-xs text-sm leading-relaxed text-cream/45">
               Pre-order the first run, and be first on the network when Loci
               ships.
             </p>
