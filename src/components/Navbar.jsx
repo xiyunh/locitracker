@@ -299,6 +299,22 @@ export default function Navbar() {
   const activeItem = navItems.find((item) => item.label === activeMenu)
 
   return (
+    <>
+      <AnimatePresence>
+        {activeItem && (
+          <motion.div
+            key="nav-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            aria-hidden="true"
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xl"
+            onMouseEnter={() => setActiveMenu(null)}
+            onClick={() => setActiveMenu(null)}
+          />
+        )}
+      </AnimatePresence>
     <header
       className={`fixed top-9 right-0 left-0 z-50 transition-[box-shadow,backdrop-filter] duration-300 ${
         scrolled || menuOpen || activeMenu
@@ -316,21 +332,6 @@ export default function Navbar() {
       }}
     >
       {/* Dimmed, blurred page behind the open menu (Oura-style) */}
-      <AnimatePresence>
-        {activeItem && (
-          <motion.div
-            key="nav-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            aria-hidden="true"
-            className="fixed inset-0 -z-10 bg-black/60 backdrop-blur-xl"
-            onMouseEnter={() => setActiveMenu(null)}
-            onClick={() => setActiveMenu(null)}
-          />
-        )}
-      </AnimatePresence>
       <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
         <Link to="/" className="inline-flex items-center" aria-label="Loci home">
           <BrandLogo />
@@ -401,5 +402,6 @@ export default function Navbar() {
 
       {accountPromptOpen && <AccountPrompt onClose={() => setAccountPromptOpen(false)} />}
     </header>
+    </>
   )
 }

@@ -19,12 +19,14 @@ function ProductCard({ product, index, onAdd }) {
         <div>
           {product.badge && <span className={`${badgeClass} mb-3`}>{product.badge}</span>}
           <h3 className="font-display text-4xl font-medium text-cream">
-            {product.name} <em className="font-normal text-gold-light">{product.variant}</em>
+            <Link to={`/product/${product.id}`} className="transition-colors hover:text-gold">
+              {product.name} <em className="font-normal text-gold-light">{product.variant}</em>
+            </Link>
           </h3>
           <p className="mt-2 text-sm text-cream/70">{product.description}</p>
         </div>
         <Link
-          to="/features"
+          to={`/product/${product.id}`}
           aria-label={`Explore ${product.name} ${product.variant}`}
           className="shrink-0 text-cream/60 transition-colors hover:text-gold-light"
         >
@@ -64,8 +66,8 @@ function ProductCard({ product, index, onAdd }) {
             Pre order
             <ArrowRight size={12} />
           </Link>
-          <Button to="/features" variant="secondary" size="sm">
-            Explore
+          <Button to={`/product/${product.id}`} variant="secondary" size="sm">
+            View
           </Button>
           <Button size="sm" onClick={() => onAdd(product.id)}>
             <Plus size={14} />

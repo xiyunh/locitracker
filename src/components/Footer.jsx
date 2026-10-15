@@ -10,8 +10,8 @@ const columns = [
   {
     title: 'Shop',
     links: [
-      { label: 'Loci Sticker', to: '/shop' },
-      { label: 'Loci Sticker 4-Pack', to: '/shop' },
+      { label: 'Loci Sticker', to: '/product/loci-sticker-single' },
+      { label: 'Loci Sticker 4-Pack', to: '/product/loci-sticker-four-pack' },
       { label: 'Pre order', to: '/pre-order' },
     ],
   },

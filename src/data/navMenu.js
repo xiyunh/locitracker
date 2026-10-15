@@ -4,8 +4,8 @@ export const navItems = [
     to: '/shop',
     summary: 'Loci Sticker trackers and bundles, ready to pair with the Loci app.',
     links: [
-      { label: 'Loci Sticker', description: 'One tracker for keys, passport, or bag.', price: '$29', to: '/shop' },
-      { label: 'Loci Sticker 4-Pack', description: 'Tag everything at home — save $17.', price: '$99', to: '/shop' },
+      { label: 'Loci Sticker', description: 'One tracker for keys, passport, or bag.', price: '$29', to: '/product/loci-sticker-single' },
+      { label: 'Loci Sticker 4-Pack', description: 'Tag everything at home — save $17.', price: '$99', to: '/product/loci-sticker-four-pack' },
       { label: 'Compare packs', description: 'See what fits your setup.', to: '/shop' },
       { label: 'Pre order', description: 'Reserve the next drop before launch.', to: '/pre-order' },
     ],

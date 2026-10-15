@@ -66,23 +66,23 @@ export default function AccountPage() {
     <>
       <PageHeader
         label="Account"
-        title="Shopper"
-        emphasis="profile"
-        subtitle="Manage cart items, shopping history, addresses, shipping, and checkout preferences."
+        title="Your"
+        emphasis="account"
+        subtitle="Save your bag, addresses, and pre-orders in one place."
       />
 
-      <section className="bg-charcoal py-20 lg:py-28">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[22rem_1fr] lg:px-10">
+      <section className="mx-3 mb-6 rounded-[2rem] bg-white py-16 md:mx-6 lg:py-24">
+        <div className={`mx-auto grid gap-8 px-6 lg:px-10 ${account ? 'max-w-7xl lg:grid-cols-[22rem_1fr]' : 'max-w-lg'}`}>
           <ScrollReveal variant="left" delay={0}>
             <Panel>
               <div className="flex items-center gap-4">
-                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand/50 text-gold-light ring-1 ring-white/10">
+                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand/10 text-brand ring-1 ring-white/10">
                   <UserRound size={24} strokeWidth={1.5} />
                 </span>
                 <div>
                   <Eyebrow className="!tracking-[0.3em]">Profile</Eyebrow>
                   <h2 className="mt-1 font-display text-3xl font-medium text-cream">
-                    {account ? account.name : 'Sign in'}
+                    {account ? account.name : 'Create account'}
                   </h2>
                 </div>
               </div>
@@ -151,14 +151,17 @@ export default function AccountPage() {
                     placeholder="you@example.com"
                   />
                   <Button type="submit" className="w-full">
-                    Continue
+                    Create account
                     <ArrowRight size={16} />
                   </Button>
+                  <p className="text-xs leading-relaxed text-cream-muted">
+                    New or returning, this is the door — enter the same name and email to pick up where you left off.
+                  </p>
                 </form>
               )}
             </Panel>
 
-            <Panel className="mt-6 !bg-brand/35">
+            <Panel className="mt-6">
               <h3 className="flex items-center gap-2 font-display text-2xl font-medium text-cream">
                 <Package size={19} strokeWidth={1.5} />
                 Current cart
@@ -191,6 +194,7 @@ export default function AccountPage() {
             </Panel>
           </ScrollReveal>
 
+          {account && (
           <div className="space-y-6">
             <ScrollReveal variant="up" delay={0}>
               <Panel>
@@ -485,6 +489,7 @@ export default function AccountPage() {
               </Panel>
             </ScrollReveal>
           </div>
+          )}
         </div>
       </section>
     </>

@@ -11,6 +11,7 @@ import AccountPage from './pages/AccountPage'
 import VerifiedPage from './pages/VerifiedPage'
 import BlogPage from './pages/BlogPage'
 import EnterprisePage from './pages/EnterprisePage'
+import ProductPage from './pages/ProductPage'
 import { StoreProvider } from './context/StoreContext'
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="shop" element={<ShopPage />} />
+          <Route path="product/:id" element={<ProductPage />} />
           <Route path="features" element={<FeaturesPage />} />
           <Route path="blog" element={<BlogPage />} />
           <Route path="experience" element={<ExperiencePage />} />

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ArrowRight, MapPin, Minus, Plus, ShoppingBag, Truck, Trash2 } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import ScrollReveal from '../components/ScrollReveal'
-import StickerTag from '../components/StickerTag'
+import Placeholder from '../components/Placeholder'
 import { Button, Eyebrow } from '../components/ui'
 import { panelClass } from '../lib/ui'
 import { formatCurrency } from '../data/catalog'
@@ -34,7 +34,7 @@ export default function CartPage() {
         subtitle="Review your tracker setup, adjust quantities, and keep everything ready for checkout."
       />
 
-      <section className="bg-charcoal py-20 lg:py-28">
+      <section className="mx-3 mb-6 rounded-[2rem] bg-white py-16 md:mx-6 lg:py-24">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[1fr_24rem] lg:px-10">
           <ScrollReveal variant="left" delay={0}>
             {cartItems.length === 0 ? (
@@ -48,8 +48,8 @@ export default function CartPage() {
                     ? `Thanks for shopping with Loci. Order ${placedOrder.id} is now saved to your shopping history.`
                     : 'Add Loci stickers and accessories to build a setup for keys, bags, and everything that moves with you.'}
                 </p>
-                <Button to="/shop" className="mt-8">
-                  Shop products
+                <Button to="/product/loci-sticker-single" className="mt-8">
+                  Shop the Loci Sticker
                   <ArrowRight size={16} />
                 </Button>
               </div>
@@ -62,9 +62,7 @@ export default function CartPage() {
                     delay={index}
                     className={`${panelClass} grid gap-5 p-5 sm:grid-cols-[5rem_1fr_auto]`}
                   >
-                    <div className="flex h-20 w-20 items-center justify-center rounded-lg border border-white/10 bg-brand/40">
-                      <StickerTag size={44} />
-                    </div>
+                    <Placeholder label="photo" aspect="aspect-square" className="h-20 w-20 rounded-lg" />
 
                     <div>
                       <Eyebrow className="!tracking-[0.25em]">{item.category}</Eyebrow>
@@ -125,8 +123,8 @@ export default function CartPage() {
             )}
           </ScrollReveal>
 
-          <ScrollReveal variant="right" delay={1} className="h-fit rounded-xl border border-white/10 bg-brand/35 p-6">
-            <Eyebrow tone="light">Order summary</Eyebrow>
+          <ScrollReveal variant="right" delay={1} className="glass h-fit rounded-xl p-6">
+            <Eyebrow>Order summary</Eyebrow>
             <div className="mt-6 space-y-3 border-b border-white/10 pb-5">
               <div className="flex gap-3 text-sm">
                 <Truck size={17} strokeWidth={1.5} className="mt-0.5 shrink-0 text-gold-light" />

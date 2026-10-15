@@ -10,7 +10,7 @@ const featuredProducts = [
     name: 'Loci Sticker',
     detail: 'For keys, passports, wallets, and everyday carry.',
     price: '$29',
-    to: '/shop',
+    to: '/product/loci-sticker-single',
     photo: 'PHOTO — single sticker on house keys',
   },
   {
@@ -19,7 +19,7 @@ const featuredProducts = [
     detail: 'Cover luggage, bags, remotes, and the stuff you share.',
     price: '$99',
     badge: 'Save $17',
-    to: '/shop',
+    to: '/product/loci-sticker-four-pack',
     photo: 'PHOTO — 4-pack spread on a table',
   },
   {
