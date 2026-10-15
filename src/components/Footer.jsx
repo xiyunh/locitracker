@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
 import BrandLogo from './BrandLogo'
-import PaymentIcons from './PaymentIcons'
 import { Button } from './ui'
 import { inputClass } from '../lib/ui'
 
@@ -202,7 +201,6 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-          <PaymentIcons />
         </ScrollReveal>
 
         <p className="mt-6 text-xs leading-relaxed text-cream/40">

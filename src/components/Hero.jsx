@@ -58,7 +58,7 @@ export default function Hero() {
           >
             Find
             <br />
-            <span className="text-gold-light">anything.</span>
+            <span className="text-[#c9ab6e]">anything.</span>
           </motion.h1>
 
           <motion.p
