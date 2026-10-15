@@ -4,10 +4,10 @@ const buttonBase =
   'inline-flex items-center justify-center gap-2 rounded-md font-medium tracking-wide whitespace-nowrap transition-colors disabled:cursor-not-allowed disabled:opacity-40'
 
 const buttonVariants = {
-  primary: 'bg-cream text-brand hover:bg-gold',
+  primary: 'bg-brand text-[#f3f4f8] hover:bg-brand-light',
   secondary: 'border border-white/15 text-cream hover:border-gold/40 hover:text-gold-light',
   ghost: 'text-cream underline-offset-4 hover:text-gold-light hover:underline',
-  gold: 'bg-gold text-charcoal hover:bg-gold-light',
+  gold: 'bg-gold text-[#f3f4f8] hover:bg-gold-light',
 }
 
 const buttonSizes = {

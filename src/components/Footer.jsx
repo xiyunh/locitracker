@@ -102,7 +102,7 @@ export default function Footer() {
   const [subscribed, setSubscribed] = useState(false)
 
   return (
-    <footer id="footer" className="border-t border-white/10 bg-[#050d16]">
+    <footer id="footer" className="border-t border-white/10 bg-charcoal-light">
       <div className="mx-auto max-w-7xl px-6 pt-20 pb-10 lg:px-10">
         <div className="grid gap-14 lg:grid-cols-12">
           <ScrollReveal variant="left" delay={0} className="lg:col-span-5">
@@ -158,26 +158,14 @@ export default function Footer() {
             <div className="mt-8">
               <p className="text-[0.65rem] font-medium tracking-[0.35em] text-gold uppercase">Follow Loci</p>
               <div className="mt-4 flex gap-4">
-                {socials.map(({ label, path }) => (
+                {socials.map(({ label }) => (
                   <a
                     key={label}
                     href="#"
                     aria-label={`${label} (coming soon)`}
-                    className="flex h-8 w-8 items-center justify-center text-cream/60 transition-colors hover:text-gold-light"
+                    className="text-xs tracking-[0.18em] whitespace-nowrap text-cream/60 uppercase transition-colors hover:text-gold-light"
                   >
-                    <svg
-                      width="17"
-                      height="17"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      {path}
-                    </svg>
+                    {label}
                   </a>
                 ))}
               </div>

@@ -6,7 +6,7 @@ export const catalog = [
     description: 'One sticker-thin tracker for keys, a passport, a wallet, or everyday carry.',
     price: 29,
     category: 'Tracker',
-    gradient: 'from-brand via-brand to-charcoal-mid',
+    gradient: 'from-brand/20 via-brand/10 to-charcoal-mid',
     tagStyle: 'single',
   },
   {
@@ -16,7 +16,7 @@ export const catalog = [
     description: 'Stick one on luggage, bags, remotes, and shared essentials while saving $17.',
     price: 99,
     category: 'Tracker',
-    gradient: 'from-charcoal-mid via-brand/80 to-brand',
+    gradient: 'from-charcoal-mid via-brand/10 to-brand/20',
     tagStyle: 'quad',
     badge: 'Save $17',
   },

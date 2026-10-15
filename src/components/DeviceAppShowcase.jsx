@@ -48,7 +48,7 @@ function FeatureRow({ feature, index }) {
       delay={index}
       className="flex gap-4 border-t border-white/10 py-5 first:border-t-0 first:pt-0 last:pb-0"
     >
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand/50 text-gold-light ring-1 ring-white/10">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand ring-1 ring-white/10">
         <Icon size={20} strokeWidth={1.5} />
       </span>
       <span>
@@ -66,7 +66,7 @@ function AppMockup() {
       delay={1}
       className="glass relative mx-auto w-full max-w-sm overflow-hidden rounded-[2rem] shadow-2xl shadow-black/40"
     >
-      <div className="border-b border-white/10 bg-brand/70 px-5 py-4">
+      <div className="border-b border-white/10 bg-brand/10 px-5 py-4">
         <div className="flex items-center justify-between">
           <span className="text-xs tracking-[0.25em] text-cream/70 uppercase">Loci App</span>
           <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.7)]" />
@@ -75,7 +75,7 @@ function AppMockup() {
       </div>
 
       <div className="p-5">
-        <div className="relative mb-5 flex h-44 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-brand/70 to-charcoal-mid">
+        <div className="relative mb-5 flex h-44 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-brand/15 to-charcoal-mid">
           <div className="absolute h-36 w-36 rounded-full border border-gold/20" />
           <div className="absolute h-24 w-24 rounded-full border border-gold/30" />
           <div className="absolute h-3 w-3 rounded-full bg-gold shadow-[0_0_20px_rgba(210,180,120,0.9)]" />

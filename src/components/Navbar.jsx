@@ -64,7 +64,7 @@ function DropdownPanel({ item }) {
             {/* Feature card */}
             <Link
               to={item.to}
-              className="group/card relative hidden min-h-[19rem] flex-col justify-end overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-brand/70 via-charcoal-mid to-charcoal p-7 transition-colors duration-300 hover:border-gold/30 lg:flex"
+              className="group/card relative hidden min-h-[19rem] flex-col justify-end overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-brand/15 via-charcoal-mid to-charcoal p-7 transition-colors duration-300 hover:border-gold/30 lg:flex"
             >
               <div className="absolute -top-10 -right-8 h-52 w-52 rounded-full bg-gradient-to-br from-gold/25 via-brand-light/25 to-transparent blur-3xl" />
               <div className="absolute top-8 right-9 transition-transform duration-500 group-hover/card:-translate-y-1 group-hover/card:scale-[1.04]">
@@ -302,7 +302,7 @@ export default function Navbar() {
     <header
       className={`fixed top-9 right-0 left-0 z-50 transition-[box-shadow,backdrop-filter] duration-300 ${
         scrolled || menuOpen || activeMenu
-          ? 'bg-brand/70 shadow-lg shadow-black/20 backdrop-blur-xl'
+          ? 'bg-charcoal-light/85 shadow-lg shadow-black/10 backdrop-blur-xl'
           : 'bg-transparent'
       }`}
       onMouseEnter={() => {

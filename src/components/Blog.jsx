@@ -39,11 +39,11 @@ export default function Blog() {
 
         <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:items-center">
           <ScrollReveal key={index} variant="right" delay={0}>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-brand to-charcoal-mid">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-brand/20 to-charcoal-mid">
               <div className="absolute inset-0 flex items-center justify-center">
                 <StickerTag size={150} peel />
               </div>
-              <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-charcoal to-transparent p-6">
+              <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-charcoal/90 to-transparent p-6">
                 <span className="text-xs tracking-widest text-gold uppercase">
                   Featured Post
                 </span>

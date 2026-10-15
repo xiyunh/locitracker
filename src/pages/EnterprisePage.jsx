@@ -46,7 +46,7 @@ export default function EnterprisePage() {
                 delay={i}
                 className="glass card-lift flex flex-col rounded-2xl p-7 hover:border-gold/30"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand/50 text-gold-light ring-1 ring-white/10">
+                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand/10 text-brand ring-1 ring-white/10">
                   <Icon size={21} strokeWidth={1.5} />
                 </span>
                 <h3 className="mt-5 font-display text-3xl font-medium text-cream">{title}</h3>

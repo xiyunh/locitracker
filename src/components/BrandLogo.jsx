@@ -11,7 +11,7 @@ export default function BrandLogo({ variant = 'nav', className = '' }) {
       <img
         src={logoLight}
         alt="Loci"
-        className="absolute top-[54%] left-0 h-auto w-full -translate-y-1/2 object-contain"
+        className="absolute top-[54%] left-0 h-auto w-full -translate-y-1/2 object-contain brightness-0 opacity-85"
       />
     </span>
   )

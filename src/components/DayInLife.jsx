@@ -15,7 +15,7 @@ const moments = [
       { label: 'Wallet', value: 'Home', color: 'bg-emerald-500' },
       { label: 'Backpack', value: 'With you', color: 'bg-brand-light' },
     ],
-    accent: 'from-brand/60',
+    accent: 'from-brand/15',
   },
   {
     id: 'airport',
@@ -27,7 +27,7 @@ const moments = [
       { label: 'Checked bag', value: 'Carousel 4', color: 'bg-emerald-500' },
       { label: 'Passport pouch', value: 'With you', color: 'bg-brand-muted' },
     ],
-    accent: 'from-brand/50',
+    accent: 'from-brand/12',
   },
   {
     id: 'lost',
@@ -39,7 +39,7 @@ const moments = [
       { label: 'Direction', value: '→ Left', color: 'bg-brand-muted' },
       { label: 'Play Sound', value: 'Enabled', color: 'bg-emerald-500' },
     ],
-    accent: 'from-brand/70',
+    accent: 'from-brand/18',
   },
   {
     id: 'park',
@@ -51,7 +51,7 @@ const moments = [
       { label: 'Last seen', value: '2 min ago', color: 'bg-brand-light' },
       { label: 'Notify When Left', value: 'On', color: 'bg-brand-muted' },
     ],
-    accent: 'from-brand/40',
+    accent: 'from-brand/10',
   },
   {
     id: 'travel',
@@ -63,7 +63,7 @@ const moments = [
       { label: 'Camera bag', value: 'Lobby', color: 'bg-amber-500' },
       { label: 'Shared with', value: '3 people', color: 'bg-brand-light' },
     ],
-    accent: 'from-brand/55',
+    accent: 'from-brand/14',
   },
 ]
 
@@ -82,7 +82,7 @@ function FindMyMockup({ metrics, accent }) {
         </div>
       </ScrollReveal>
       <ScrollReveal variant="scale" delay={1}>
-        <div className="mb-4 flex h-32 items-center justify-center rounded-xl bg-brand/30">
+        <div className="mb-4 flex h-32 items-center justify-center rounded-xl bg-brand/10">
           <div className="relative">
             <div className="h-20 w-20 rounded-full border-2 border-brand-muted/50" />
             <div className="absolute top-1/2 left-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold shadow-[0_0_12px_rgba(210,180,120,0.6)]" />

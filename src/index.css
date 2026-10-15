@@ -4,16 +4,16 @@
   --font-sans: "Montserrat", system-ui, sans-serif;
   --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   --font-logo: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  --color-cream: #f5f0e8;
-  --color-cream-muted: #a8a090;
+  --color-cream: #16263c;
+  --color-cream-muted: #5d6878;
   --color-brand: #11385b;
   --color-brand-light: #3d7ab5;
   --color-brand-muted: #5a9fd4;
-  --color-gold: #d2b478;
-  --color-gold-light: #d7bda2;
-  --color-charcoal: #071018;
-  --color-charcoal-light: #0d1f2d;
-  --color-charcoal-mid: #152a3d;
+  --color-gold: #96763a;
+  --color-gold-light: #ab8c52;
+  --color-charcoal: #e3e5ed;
+  --color-charcoal-light: #eceef4;
+  --color-charcoal-mid: #d5d9e4;
 }
 
 html,
@@ -64,7 +64,7 @@ body {
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 :focus-visible {
@@ -88,7 +88,7 @@ html {
 /* Soft brand glow behind hero / page headers */
 .glow-top {
   background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(17, 56, 91, 0.55) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 0%, rgba(17, 56, 91, 0.16) 0%, transparent 55%),
     radial-gradient(ellipse at 85% 15%, rgba(210, 180, 120, 0.08) 0%, transparent 40%);
 }
 
@@ -128,7 +128,7 @@ html {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 45%, transparent 50%, rgba(0, 0, 0, 0.6) 100%);
+  background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(21, 35, 56, 0.12) 100%);
 }
 
 /* Slow drifting spotlight */
@@ -145,13 +145,13 @@ html {
   max-height: 1100px;
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(61, 122, 181, 0.38) 0%, rgba(17, 56, 91, 0.18) 35%, transparent 65%);
+  background: radial-gradient(circle, rgba(61, 122, 181, 0.2) 0%, rgba(17, 56, 91, 0.08) 35%, transparent 65%);
   filter: blur(40px);
   animation: spotlight-drift 20s ease-in-out infinite;
 }
 
 .spotlight-gold {
-  background: radial-gradient(circle, rgba(210, 180, 120, 0.16) 0%, rgba(210, 180, 120, 0.05) 40%, transparent 65%);
+  background: radial-gradient(circle, rgba(150, 118, 58, 0.14) 0%, rgba(150, 118, 58, 0.05) 40%, transparent 65%);
   animation-duration: 26s;
   animation-direction: reverse;
 }
@@ -159,7 +159,7 @@ html {
 /* Gold hairline used under eyebrows and between editorial rows */
 .hairline-gold {
   height: 1px;
-  background: linear-gradient(90deg, rgba(210, 180, 120, 0.7), rgba(210, 180, 120, 0));
+  background: linear-gradient(90deg, rgba(150, 118, 58, 0.7), rgba(150, 118, 58, 0));
 }
 
 /* Light sweep across product faces */
@@ -260,19 +260,35 @@ html {
 /* ── glassmorphism surfaces ─────────────────────── */
 .glass {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
-  backdrop-filter: blur(22px) saturate(1.5);
-  -webkit-backdrop-filter: blur(22px) saturate(1.5);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.5));
+  backdrop-filter: blur(22px) saturate(1.4);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  border: 1px solid rgba(22, 38, 60, 0.12);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 10px 36px rgba(0, 0, 0, 0.35);
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 10px 32px rgba(23, 37, 60, 0.12);
 }
 
 .glass-soft {
-  background: rgba(255, 255, 255, 0.045);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(14px) saturate(1.3);
   -webkit-backdrop-filter: blur(14px) saturate(1.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(22, 38, 60, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
+
+
+/* ── light theme: remap white-alpha utilities to ink-alpha ───── */
+.border-white\/5 { border-color: rgba(22, 38, 60, 0.08); }
+.border-white\/10 { border-color: rgba(22, 38, 60, 0.12); }
+.border-white\/12 { border-color: rgba(22, 38, 60, 0.14); }
+.border-white\/15 { border-color: rgba(22, 38, 60, 0.18); }
+.border-white\/20 { border-color: rgba(22, 38, 60, 0.22); }
+.divide-white\/5 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(22, 38, 60, 0.08); }
+.ring-white\/10 { --tw-ring-color: rgba(22, 38, 60, 0.12); }
+.bg-white\/5 { background-color: rgba(22, 38, 60, 0.04); }
+.bg-white\/10 { background-color: rgba(22, 38, 60, 0.07); }
+.bg-white\/20 { background-color: rgba(22, 38, 60, 0.16); }
+.bg-white\/\[0\.02\] { background-color: rgba(22, 38, 60, 0.025); }
+.bg-white\/\[0\.04\] { background-color: rgba(22, 38, 60, 0.045); }
+.bg-white\/\[0\.045\] { background-color: rgba(22, 38, 60, 0.05); }

@@ -32,7 +32,7 @@ const featuredProducts = [
 
 export default function Membership() {
   return (
-    <section className="border-y border-white/5 bg-gradient-to-b from-charcoal via-brand/80 to-charcoal py-24 lg:py-32">
+    <section className="border-y border-white/5 bg-gradient-to-b from-charcoal via-brand/10 to-charcoal py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <SectionHeading
