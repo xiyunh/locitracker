@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ScrollReveal from './ScrollReveal'
-import StickerTag from './StickerTag'
+import appMap from '../assets/app-map.png'
 import { popUpTransition } from '../lib/scrollAnimations'
 
 const moments = [
@@ -67,46 +67,18 @@ const moments = [
   },
 ]
 
-function FindMyMockup({ metrics, accent }) {
+function FindMyMockup() {
   return (
-    <div
-      className={`relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br ${accent} to-charcoal-mid p-6 shadow-2xl shadow-black/30`}
-    >
-      <ScrollReveal variant="fade" delay={0}>
-        <div className="mb-4 flex items-center justify-between">
-          <span className="text-xs tracking-widest text-cream/60 uppercase">Loci</span>
-          <div className="flex gap-1">
-            <div className="h-2 w-2 rounded-full bg-gold/60" />
-            <div className="h-2 w-2 rounded-full bg-white/20" />
-          </div>
-        </div>
-      </ScrollReveal>
-      <ScrollReveal variant="scale" delay={1}>
-        <div className="mb-4 flex h-32 items-center justify-center rounded-xl bg-brand/10">
-          <div className="relative">
-            <div className="h-20 w-20 rounded-full border-2 border-brand-muted/50" />
-            <div className="absolute top-1/2 left-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold shadow-[0_0_12px_rgba(210,180,120,0.6)]" />
-          </div>
-        </div>
-      </ScrollReveal>
-      <div className="space-y-3">
-        {metrics.map((m, i) => (
-          <ScrollReveal key={m.label} variant="left" delay={i + 2}>
-            <div className="glass-soft rounded-xl p-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-cream/60">{m.label}</span>
-                <span className="text-lg font-medium text-cream">{m.value}</span>
-              </div>
-              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
-                <div className={`h-full w-3/4 rounded-full ${m.color}`} />
-              </div>
-            </div>
-          </ScrollReveal>
-        ))}
-      </div>
-      <ScrollReveal variant="up" delay={5} className="mt-6 flex justify-center">
-        <StickerTag size={48} />
-      </ScrollReveal>
+    <div className="relative mx-auto w-full max-w-xs">
+      <img
+        src={appMap}
+        alt="Loci app — map view with tagged items pinned around campus"
+        className="w-full rounded-[1.8rem] border border-white/15 shadow-2xl shadow-black/25"
+        loading="lazy"
+      />
+      <p className="mt-4 text-center text-[0.6rem] tracking-[0.3em] text-cream-muted uppercase">
+        Map view · Loci app beta
+      </p>
     </div>
   )
 }
@@ -173,7 +145,7 @@ export default function DayInLife() {
                 </p>
               )}
             </motion.div>
-            <FindMyMockup metrics={moment.metrics} accent={moment.accent} />
+            <FindMyMockup />
           </motion.div>
         </AnimatePresence>
       </div>

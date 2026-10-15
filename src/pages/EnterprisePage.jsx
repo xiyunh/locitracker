@@ -1,4 +1,4 @@
-import { ArrowRight, Boxes, Briefcase, Truck } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import ScrollReveal from '../components/ScrollReveal'
 import Placeholder from '../components/Placeholder'
@@ -7,19 +7,16 @@ import { Button, SectionHeading } from '../components/ui'
 
 const useCases = [
   {
-    icon: Briefcase,
     title: 'Equipment & tools',
     text: 'Stick a Loci on shared gear — cameras, kits, power tools — and see where everything ended up at the close of the day.',
     photo: 'PHOTO — tagged toolkit in a workshop',
   },
   {
-    icon: Truck,
     title: 'Fleet & logistics',
     text: 'Crates, cases, and pallets move between sites. Thin tags that survive handling keep every container accounted for.',
     photo: 'PHOTO — tagged flight case being loaded',
   },
   {
-    icon: Boxes,
     title: 'IT & office assets',
     text: 'Laptops, loaner devices, demo units. Tag the things that walk away, and reclaim the audit week nobody enjoys.',
     photo: 'PHOTO — asset drawer with tagged devices',
@@ -39,15 +36,15 @@ export default function EnterprisePage() {
       <section className="bg-charcoal py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="grid gap-6 md:grid-cols-3">
-            {useCases.map(({ icon: Icon, title, text, photo }, i) => (
+            {useCases.map(({ title, text, photo }, i) => (
               <ScrollReveal
                 key={title}
                 variant="up"
                 delay={i}
                 className="glass card-lift flex flex-col rounded-2xl p-7 hover:border-gold/30"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand/10 text-brand ring-1 ring-white/10">
-                  <Icon size={21} strokeWidth={1.5} />
+                <span className="font-display text-sm tracking-wider text-gold">
+                  {String(i + 1).padStart(2, '0')}
                 </span>
                 <h3 className="mt-5 font-display text-3xl font-medium text-cream">{title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-cream/65">{text}</p>

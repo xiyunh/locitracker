@@ -20,7 +20,7 @@ export default function Hero() {
   const mapY = useTransform(scrollY, [0, 700], [0, 50])
 
   return (
-    <section className="vignette relative flex min-h-screen flex-col overflow-hidden bg-charcoal pt-36 pb-10 lg:pt-40">
+    <section className="relative flex min-h-screen flex-col overflow-hidden bg-charcoal pt-36 pb-10 lg:pt-40">
       {/* Soft, faded world map / GPS backdrop */}
       <motion.div
         style={{ y: mapY }}
@@ -38,17 +38,11 @@ export default function Hero() {
             'repeating-linear-gradient(to right, rgba(245,240,232,0.07) 0 1px, transparent 1px 86px)',
         }}
       />
-      <div className="spotlight -top-[22%] -left-[14%]" />
-      <div className="spotlight spotlight-gold -right-[18%] top-[12%]" />
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl flex-1 gap-14 px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-10">
         {/* Left: badge, headline, intro */}
         <div className="flex flex-col justify-center">
-          <motion.p
-            {...reveal(0.05)}
-            className="glass-soft inline-flex w-fit items-center gap-2 rounded-full px-4 py-1.5 text-[0.62rem] tracking-[0.22em] text-cream/70 uppercase"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden="true" />
+          <motion.p {...reveal(0.05)} className="text-[0.62rem] tracking-[0.3em] text-cream-muted uppercase">
             The world&apos;s first sticker tracker
           </motion.p>
 
