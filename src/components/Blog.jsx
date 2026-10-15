@@ -14,7 +14,7 @@ export default function Blog() {
   const next = () => setIndex((i) => (i === posts.length - 1 ? 0 : i + 1))
 
   return (
-    <section className="border-t border-white/5 bg-charcoal py-24 lg:py-32">
+    <section className="mx-3 my-6 rounded-[2rem] bg-[#ece6d8] py-20 md:mx-6 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <ScrollReveal variant="up">
           <Eyebrow>From the blog</Eyebrow>
