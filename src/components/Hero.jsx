@@ -31,7 +31,7 @@ export default function Hero() {
         style={{ y: mapY }}
         className="pointer-events-none absolute top-[-2%] left-1/2 aspect-[2/1] w-[min(1560px,124%)] -translate-x-1/2 [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,black_60%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,black_60%,transparent_100%)]"
       >
-        <WorldMap className="h-full w-full" />
+        <WorldMap className="h-full w-full blur-[6px]" />
       </motion.div>
 
       <div className="relative z-10 mx-auto grid min-h-[94vh] w-full max-w-7xl items-center gap-12 px-6 pt-32 pb-16 lg:grid-cols-[0.9fr_1.2fr_auto] lg:gap-6 lg:px-10 lg:pt-36">
