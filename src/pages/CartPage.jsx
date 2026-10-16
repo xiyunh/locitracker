@@ -3,6 +3,7 @@ import { ArrowRight, MapPin, Minus, Plus, ShoppingBag, Truck, Trash2 } from 'luc
 import PageHeader from '../components/PageHeader'
 import ScrollReveal from '../components/ScrollReveal'
 import Placeholder from '../components/Placeholder'
+import { productImages } from '../data/productImages'
 import { Button, Eyebrow } from '../components/ui'
 import { panelClass } from '../lib/ui'
 import { formatCurrency } from '../data/catalog'
@@ -62,7 +63,17 @@ export default function CartPage() {
                     delay={index}
                     className={`${panelClass} grid gap-5 p-5 sm:grid-cols-[5rem_1fr_auto]`}
                   >
-                    <Placeholder label="photo" aspect="aspect-square" className="h-20 w-20 rounded-lg" />
+                    {productImages[item.id] ? (
+                      <img
+                        src={productImages[item.id].thumb}
+                        alt={productImages[item.id].alt}
+                        width={600}
+                        height={600}
+                        className="h-20 w-20 rounded-lg object-cover"
+                      />
+                    ) : (
+                      <Placeholder label="photo" aspect="aspect-square" className="h-20 w-20 rounded-lg" />
+                    )}
 
                     <div>
                       <Eyebrow className="!tracking-[0.25em]">{item.category}</Eyebrow>

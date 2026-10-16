@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
-import Placeholder from './Placeholder'
+import { productImages } from '../data/productImages'
 
 const featuredProducts = [
   {
@@ -9,7 +9,7 @@ const featuredProducts = [
     detail: 'For keys, passports, wallets, and everyday carry.',
     price: '$29',
     to: '/product/loci-sticker-single',
-    photo: 'PHOTO — single sticker on house keys',
+    image: productImages['loci-sticker-single'],
   },
   {
     kicker: 'four pack',
@@ -18,7 +18,7 @@ const featuredProducts = [
     price: '$99',
     badge: 'Save $17',
     to: '/product/loci-sticker-four-pack',
-    photo: 'PHOTO — 4-pack spread on a table',
+    image: productImages['loci-sticker-four-pack'],
   },
   {
     kicker: 'reserve',
@@ -27,7 +27,7 @@ const featuredProducts = [
     price: 'From $29',
     cta: 'Reserve',
     to: '/pre-order',
-    photo: 'PHOTO — first-drop packaging',
+    image: productImages['pre-order'],
   },
 ]
 
@@ -54,7 +54,14 @@ export default function Membership() {
                   )}
                 </span>
 
-                <Placeholder label={product.photo} aspect="aspect-[4/5]" className="my-7 rounded-xl border-0 bg-white/70" />
+                <img
+                  src={product.image.src}
+                  alt={product.image.alt}
+                  width={1200}
+                  height={1200}
+                  loading="lazy"
+                  className="my-7 aspect-square w-full rounded-xl object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                />
 
                 <span className="flex items-baseline justify-between gap-4">
                   <span className="text-sm font-bold tracking-[0.08em] text-cream uppercase">{product.name}</span>

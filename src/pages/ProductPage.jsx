@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowRight, Check, Minus, Plus } from 'lucide-react'
 import Placeholder from '../components/Placeholder'
+import { productImages } from '../data/productImages'
 import ScrollReveal from '../components/ScrollReveal'
 import { Button, Eyebrow } from '../components/ui'
 import { badgeClass } from '../lib/ui'
@@ -44,11 +45,22 @@ export default function ProductPage() {
         <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:px-10">
           <ScrollReveal variant="right" delay={0} className="rounded-2xl bg-[#eef0f5] p-6 lg:p-8">
             <span className="font-display text-5xl leading-none text-cream lowercase">{product.variant}</span>
-            <Placeholder
-              label={`PHOTO — ${product.name} ${product.variant}, product shot`}
-              aspect="aspect-square"
-              className="mt-6 rounded-xl border-0 bg-white/70"
-            />
+            {productImages[product.id] ? (
+              <img
+                src={productImages[product.id].src}
+                alt={productImages[product.id].alt}
+                width={1200}
+                height={1200}
+                fetchPriority="high"
+                className="mt-6 aspect-square w-full rounded-xl object-cover"
+              />
+            ) : (
+              <Placeholder
+                label={`PHOTO — ${product.name} ${product.variant}, product shot`}
+                aspect="aspect-square"
+                className="mt-6 rounded-xl border-0 bg-white/70"
+              />
+            )}
           </ScrollReveal>
 
           <ScrollReveal variant="left" delay={1}>
