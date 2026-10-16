@@ -1,13 +1,17 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import WorldMap from './WorldMap'
 import productCards from '../assets/product-cards-keyed.webp'
 import { Button } from './ui'
 
-const stats = [
-  { value: '<2 mm', label: 'thin' },
-  { value: '18 mo', label: 'battery' },
-  { value: '1 tap', label: 'to pair' },
+// side notes beside the cards — real dimensions, nothing invented
+const notes = [
+  ['85.6 mm', 'card width'],
+  ['54 mm', 'card height'],
+  ['<2 mm', 'profile'],
+  ['18 mo', 'battery'],
+  ['1 tap', 'to pair'],
 ]
 
 const reveal = (delay = 0) => ({
@@ -18,11 +22,20 @@ const reveal = (delay = 0) => ({
 
 export default function Hero() {
   const { scrollY } = useScroll()
-  const imgY = useTransform(scrollY, [0, 700], [0, 40])
+  const mapY = useTransform(scrollY, [0, 700], [0, 50])
+  const cardsY = useTransform(scrollY, [0, 700], [0, 30])
 
   return (
     <section className="relative flex min-h-[92vh] items-center overflow-hidden pt-36 pb-16 lg:pt-32">
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-6 lg:px-10">
+      {/* faded world map / GPS backdrop */}
+      <motion.div
+        style={{ y: mapY }}
+        className="pointer-events-none absolute top-[4%] left-1/2 aspect-[2/1] w-[min(1360px,106%)] -translate-x-1/2 opacity-70 [mask-image:radial-gradient(ellipse_76%_70%_at_50%_46%,black_50%,transparent_96%)] [-webkit-mask-image:radial-gradient(ellipse_76%_70%_at_50%_46%,black_50%,transparent_96%)]"
+      >
+        <WorldMap className="h-full w-full" />
+      </motion.div>
+
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:px-10">
         <div>
           <motion.p {...reveal(0.05)} className="text-[0.62rem] tracking-[0.3em] text-cream-muted uppercase">
             The world&apos;s first sticker tracker
@@ -53,30 +66,31 @@ export default function Hero() {
               See the sticker
             </Link>
           </motion.div>
-
-          <motion.ul {...reveal(0.6)} className="mt-12 flex flex-wrap gap-x-10 gap-y-4">
-            {stats.map((s) => (
-              <li key={s.value}>
-                <p className="font-sans text-2xl leading-none font-light tracking-tight text-cream/70">{s.value}</p>
-                <p className="mt-1 text-[0.65rem] tracking-[0.2em] text-cream/35 uppercase">{s.label}</p>
-              </li>
-            ))}
-          </motion.ul>
         </div>
 
+        {/* cards floating on the map, dimension notes beside them */}
         <motion.div
-          style={{ y: imgY }}
+          style={{ y: cardsY }}
           initial={{ opacity: 0, scale: 0.96, x: 24 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative lg:-mr-10"
+          className="relative lg:pr-28"
         >
           <img
             src={productCards}
             alt="Two Loci sticker trackers, card-sized, with the compass mark"
-            className="w-full drop-shadow-[0_30px_50px_rgba(23,37,60,0.18)]"
+            className="w-full"
             fetchPriority="high"
           />
+          <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-4 lg:absolute lg:top-1/2 lg:right-0 lg:mt-0 lg:flex-col lg:gap-6 lg:-translate-y-1/2">
+            {notes.map(([value, label], i) => (
+              <motion.li key={label} {...reveal(0.7 + i * 0.08)}>
+                <div className="hairline-gold hidden w-9 lg:block" />
+                <p className="mt-2 font-sans text-xl leading-none font-light tracking-tight text-cream/75">{value}</p>
+                <p className="mt-1 text-[0.6rem] tracking-[0.25em] text-cream/40 uppercase">{label}</p>
+              </motion.li>
+            ))}
+          </ul>
         </motion.div>
       </div>
     </section>
