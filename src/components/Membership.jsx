@@ -33,7 +33,7 @@ const featuredProducts = [
 
 export default function Membership() {
   return (
-    <section className="mx-3 my-6 rounded-[2rem] bg-white py-12 md:mx-6 lg:py-16">
+    <section className="my-6 bg-white py-12 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div>
           <div className="grid gap-4 md:grid-cols-3 md:gap-5">
