@@ -1,7 +1,5 @@
 import { ArrowRight } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
-import { Button, SectionHeading } from './ui'
-import { badgeClass } from '../lib/ui'
 import Placeholder from './Placeholder'
 
 const featuredProducts = [
@@ -35,15 +33,9 @@ const featuredProducts = [
 
 export default function Membership() {
   return (
-    <section className="mx-3 my-6 rounded-[2rem] bg-white py-20 md:mx-6 lg:py-28">
+    <section className="mx-3 my-6 rounded-[2rem] bg-white py-12 md:mx-6 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid gap-12">
-          <SectionHeading
-            eyebrow="The collection"
-            title="Start with the tracker. Build the setup around it."
-            copy="Choose a single Loci for one essential or a bundle for everything you carry — then reserve your place in the first drop."
-          />
-
+        <div>
           <div className="grid gap-4 md:grid-cols-3 md:gap-5">
             {featuredProducts.map((product, index) => (
               <ScrollReveal
@@ -78,12 +70,6 @@ export default function Membership() {
           </div>
         </div>
 
-        <ScrollReveal variant="subtle" delay={4} className="mt-12 border-t border-white/10 pt-6">
-          <Button to="/shop" variant="ghost" size="none" className="text-sm">
-            Compare all products
-            <ArrowRight size={15} />
-          </Button>
-        </ScrollReveal>
       </div>
     </section>
   )
