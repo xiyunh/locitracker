@@ -8,6 +8,7 @@ import PreOrderPage from './pages/PreOrderPage'
 import CartPage from './pages/CartPage'
 import LegalPage from './pages/LegalPage'
 import AccountPage from './pages/AccountPage'
+import JoinPage from './pages/JoinPage'
 import VerifiedPage from './pages/VerifiedPage'
 import BlogPage from './pages/BlogPage'
 import EnterprisePage from './pages/EnterprisePage'
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="accessibility" element={<LegalPage page="accessibility" />} />
           <Route path="returns" element={<LegalPage page="returns" />} />
           <Route path="account" element={<AccountPage />} />
+          <Route path="join" element={<JoinPage />} />
           <Route path="verified" element={<VerifiedPage />} />
         </Route>
       </Routes>

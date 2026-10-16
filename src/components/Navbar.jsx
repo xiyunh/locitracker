@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X, ShoppingBag, ChevronDown, ArrowRight, UserRound } from 'lucide-react'
 import { navItems } from '../data/navMenu'
 import BrandLogo from './BrandLogo'
 import StickerTag from './StickerTag'
 import { useStore } from '../context/store'
-import { buttonClass, iconButtonClass, inputClass, labelClass, panelClass } from '../lib/ui'
+import { buttonClass, iconButtonClass } from '../lib/ui'
 
 function DropdownPanel({ item }) {
   return (
@@ -170,95 +170,12 @@ function MobileNavSection({ item, onNavigate }) {
   )
 }
 
-function AccountPrompt({ onClose }) {
-  const navigate = useNavigate()
-  const { signIn } = useStore()
-
-  return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 px-6 backdrop-blur-sm">
-      <div className={`${panelClass} w-full max-w-md p-6 shadow-2xl shadow-black/50`}>
-        <div className="flex items-start justify-between gap-6">
-          <div>
-            <p className="text-xs tracking-[0.3em] text-gold uppercase">Create account</p>
-            <h2 className="mt-3 font-display text-4xl font-medium text-cream">Save your shopper profile.</h2>
-            <p className="mt-3 text-sm leading-relaxed text-cream/65">
-              Keep cart items, addresses, shipping preferences, and shopping history in one place.
-            </p>
-          </div>
-          <button
-            type="button"
-            aria-label="Close account prompt"
-            onClick={onClose}
-            className="text-cream/55 transition-colors hover:text-cream"
-          >
-            <X size={22} />
-          </button>
-        </div>
-
-        <form
-          className="mt-6 space-y-4"
-          onSubmit={(event) => {
-            event.preventDefault()
-            const data = new FormData(event.currentTarget)
-            signIn({
-              name: data.get('name'),
-              email: data.get('email'),
-            })
-            onClose()
-            navigate('/account')
-          }}
-        >
-          <div>
-            <label htmlFor="nav-signup-name" className={labelClass}>
-              Name
-            </label>
-            <input
-              id="nav-signup-name"
-              name="name"
-              type="text"
-              required
-              placeholder="Your name"
-              className={`mt-2 ${inputClass}`}
-            />
-          </div>
-          <div>
-            <label htmlFor="nav-signup-email" className={labelClass}>
-              Email
-            </label>
-            <input
-              id="nav-signup-email"
-              name="email"
-              type="email"
-              required
-              placeholder="you@example.com"
-              className={`mt-2 ${inputClass}`}
-            />
-          </div>
-          <button type="submit" className={buttonClass('primary', 'md', 'w-full')}>
-            Sign up
-            <ArrowRight size={16} />
-          </button>
-        </form>
-
-        <Link
-          to="/account"
-          onClick={onClose}
-          className="mt-4 block text-center text-sm text-cream/60 transition-colors hover:text-gold-light"
-        >
-          Continue to account page
-        </Link>
-      </div>
-    </div>
-  )
-}
-
 export default function Navbar() {
   const location = useLocation()
   const { account, itemCount } = useStore()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState(null)
-  const [accountPromptOpen, setAccountPromptOpen] = useState(false)
   const closeTimer = useRef(null)
 
   const openMenu = (label) => {
@@ -289,7 +206,6 @@ export default function Navbar() {
     const id = window.setTimeout(() => {
       setMenuOpen(false)
       setActiveMenu(null)
-      setAccountPromptOpen(false)
     }, 0)
 
     return () => window.clearTimeout(id)
@@ -349,20 +265,13 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-1">
-          {account ? (
-            <Link to="/account" aria-label="Account" className={iconButtonClass}>
-              <UserRound size={20} strokeWidth={1.5} />
-            </Link>
-          ) : (
-            <button
-              type="button"
-              aria-label="Sign up for an account"
-              onClick={() => setAccountPromptOpen(true)}
-              className={iconButtonClass}
-            >
-              <UserRound size={20} strokeWidth={1.5} />
-            </button>
-          )}
+          <Link
+            to={account ? '/account' : '/join'}
+            aria-label={account ? 'Account' : 'Create an account'}
+            className={iconButtonClass}
+          >
+            <UserRound size={20} strokeWidth={1.5} />
+          </Link>
           <Link to="/cart" aria-label="Cart" className={`${iconButtonClass} relative`}>
             <ShoppingBag size={20} strokeWidth={1.5} />
             {itemCount > 0 && (
@@ -400,7 +309,6 @@ export default function Navbar() {
         </div>
       )}
 
-      {accountPromptOpen && <AccountPrompt onClose={() => setAccountPromptOpen(false)} />}
     </header>
     </>
   )

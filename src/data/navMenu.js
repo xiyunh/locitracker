@@ -11,9 +11,9 @@ export const navItems = [
     ],
   },
   {
-    label: 'Features',
+    label: 'Why LOCI',
     to: '/features',
-    summary: 'Sticker-thin design, the Loci network, and privacy built in.',
+    summary: 'Why a sticker beats a tag: thinner, networked, and private by design.',
     links: [
       { label: 'Sticks to anything', description: 'Thin enough for a passport or remote.', to: '/features' },
       { label: 'The Loci network', description: 'Locate items even when far away.', to: '/features' },

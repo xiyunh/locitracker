@@ -18,7 +18,7 @@ const columns = [
   {
     title: 'Learn',
     links: [
-      { label: 'Features', to: '/features' },
+      { label: 'Why LOCI', to: '/features' },
       { label: 'Sticks to anything', to: '/features' },
       { label: 'The Loci network', to: '/features' },
       { label: 'A day with Loci', to: '/experience' },

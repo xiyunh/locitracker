@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import {
   ArrowRight,
   CheckCircle2,
@@ -55,6 +55,8 @@ export default function AccountPage() {
   const [contactForm, setContactForm] = useState(profile.contact)
   const [addressForm, setAddressForm] = useState(emptyAddress)
   const [savedContact, setSavedContact] = useState(false)
+
+  if (!account) return <Navigate to="/join" replace />
 
   const submitAddress = (event) => {
     event.preventDefault()
