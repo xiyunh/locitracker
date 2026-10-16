@@ -1,3 +1,5 @@
+import { calendlyUrl } from './contact'
+
 export const navItems = [
   {
     label: 'Shop',
@@ -11,7 +13,7 @@ export const navItems = [
     ],
   },
   {
-    label: 'Why LOCI',
+    label: 'Why Loci',
     to: '/features',
     summary: 'Why a sticker beats a tag: thinner, networked, and private by design.',
     links: [
@@ -29,7 +31,7 @@ export const navItems = [
       { label: 'Equipment & tools', description: 'Tag shared gear so it comes back.', to: '/enterprise' },
       { label: 'Fleet & logistics', description: 'Follow crates, cases, and kits between sites.', to: '/enterprise' },
       { label: 'Teams at scale', description: 'Volume packs for every seat and site.', to: '/enterprise' },
-      { label: 'Talk to us', description: 'Join the pilot program for early fleets.', to: '/enterprise' },
+      { label: 'Talk to us', description: 'Book a 20-minute demo call.', ...(calendlyUrl ? { href: calendlyUrl } : { to: '/enterprise#book' }) },
     ],
   },
 ]

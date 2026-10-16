@@ -1,9 +1,11 @@
-import { ArrowRight } from 'lucide-react'
+import { useEffect } from 'react'
+import { ArrowRight, CalendarDays } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import ScrollReveal from '../components/ScrollReveal'
 import Placeholder from '../components/Placeholder'
 import Waitlist from '../components/Waitlist'
 import { Button, SectionHeading } from '../components/ui'
+import { calendlyUrl } from '../data/contact'
 
 const useCases = [
   {
@@ -22,6 +24,41 @@ const useCases = [
     photo: 'PHOTO — asset drawer with tagged devices',
   },
 ]
+
+function CalendlyEmbed() {
+  useEffect(() => {
+    if (!calendlyUrl || document.querySelector('script[data-calendly]')) return
+    const script = document.createElement('script')
+    script.src = 'https://assets.calendly.com/assets/external/widget.js'
+    script.async = true
+    script.dataset.calendly = 'true'
+    document.body.appendChild(script)
+  }, [])
+
+  if (!calendlyUrl) {
+    return (
+      <div className="flex h-full min-h-[22rem] flex-col items-start justify-center rounded-2xl bg-[#eef0f5] p-8 lg:p-10">
+        <CalendarDays size={28} strokeWidth={1.5} className="text-brand" />
+        <p className="mt-5 font-display text-3xl font-medium text-cream">Booking opens shortly.</p>
+        <p className="mt-3 max-w-sm text-sm leading-relaxed text-cream/65">
+          Our calendar link is being set up. Join the pilot list below and we&apos;ll reach out to find a time.
+        </p>
+        <Button href="#waitlist" variant="secondary" className="mt-6">
+          Join the pilot
+          <ArrowRight size={15} />
+        </Button>
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className="calendly-inline-widget overflow-hidden rounded-2xl bg-white"
+      data-url={`${calendlyUrl}?hide_gdpr_banner=1&background_color=ffffff&text_color=16263c&primary_color=11385b`}
+      style={{ minWidth: '320px', height: '700px' }}
+    />
+  )
+}
 
 export default function EnterprisePage() {
   return (
@@ -65,12 +102,48 @@ export default function EnterprisePage() {
                 <li>— Priority allocation from the first drop</li>
                 <li>— Direct line to the team building it</li>
               </ul>
-              <Button href="#waitlist" size="lg" className="group mt-2 w-fit">
-                Join the pilot
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-              </Button>
+              <div className="mt-2 flex flex-wrap gap-3">
+                <Button href="#book" size="lg" className="group w-fit">
+                  Book a demo
+                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                </Button>
+                <Button href="#waitlist" variant="secondary" size="lg" className="w-fit">
+                  Join the pilot
+                </Button>
+              </div>
             </ScrollReveal>
           </div>
+        </div>
+      </section>
+
+      <section id="book" className="scroll-mt-28 bg-white py-20 lg:py-28">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-10">
+          <ScrollReveal variant="up" delay={0}>
+            <SectionHeading
+              eyebrow="Book a demo"
+              title="Twenty minutes with the team."
+              copy="Pick a slot that suits you. We'll walk through how Loci fits your equipment, your sites, and your rollout, and answer the hard questions."
+            />
+            <ul className="mt-8 space-y-3 text-sm text-cream/70">
+              <li className="flex items-center gap-3">
+                <CalendarDays size={16} className="text-gold" />
+                20-minute video call
+              </li>
+              <li className="flex items-center gap-3">
+                <CalendarDays size={16} className="text-gold" />
+                Bring your use case; we'll bring hardware
+              </li>
+            </ul>
+            {calendlyUrl && (
+              <Button href={calendlyUrl} size="lg" className="group mt-8 w-fit" target="_blank" rel="noreferrer">
+                Open in Calendly
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </Button>
+            )}
+          </ScrollReveal>
+          <ScrollReveal variant="up" delay={1}>
+            <CalendlyEmbed />
+          </ScrollReveal>
         </div>
       </section>
 

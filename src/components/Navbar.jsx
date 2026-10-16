@@ -34,8 +34,8 @@ function DropdownPanel({ item }) {
             <ul className="flex flex-col justify-center">
               {item.links.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    to={link.to}
+                  <MenuLink
+                    link={link}
                     role="menuitem"
                     className="group/link -mx-4 flex items-center justify-between gap-6 rounded-lg px-4 py-3.5 transition-colors duration-200 hover:bg-[#eef2f9]"
                   >
@@ -56,7 +56,7 @@ function DropdownPanel({ item }) {
                       size={18}
                       className="shrink-0 -translate-x-2 text-gold opacity-0 transition-all duration-200 group-hover/link:translate-x-0 group-hover/link:opacity-100"
                     />
-                  </Link>
+                  </MenuLink>
                 </li>
               ))}
             </ul>
@@ -71,7 +71,7 @@ function DropdownPanel({ item }) {
                 <StickerTag peel className="h-32 w-32 drop-shadow-[0_20px_36px_rgba(0,0,0,0.5)]" />
               </div>
 
-              <p className="text-[0.65rem] font-medium tracking-[0.35em] text-gold uppercase">
+              <p className="text-[0.7rem] font-medium tracking-[0.25em] text-gold">
                 {item.label}
               </p>
               <p className="mt-3 max-w-[17rem] font-display text-2xl leading-snug font-medium text-cream">
@@ -92,13 +92,29 @@ function DropdownPanel({ item }) {
   )
 }
 
+/** Menu entries are in-app routes, except booking links which open Calendly in a new tab. */
+function MenuLink({ link, children, ...props }) {
+  if (link.href) {
+    return (
+      <a href={link.href} target="_blank" rel="noreferrer" {...props}>
+        {children}
+      </a>
+    )
+  }
+  return (
+    <Link to={link.to} {...props}>
+      {children}
+    </Link>
+  )
+}
+
 function DesktopNavItem({ item, isActive, onActivate }) {
   return (
     <li>
       <NavLink
         to={item.to}
         className={({ isActive: isRouteActive }) =>
-          `inline-flex items-center gap-1.5 py-2 text-[0.7rem] font-medium tracking-[0.22em] uppercase transition-colors ${
+          `inline-flex items-center gap-1.5 py-2 text-[0.8rem] font-medium tracking-[0.08em] transition-colors ${
             isActive || isRouteActive
               ? 'text-gold-light'
               : 'text-cream-muted hover:text-gold-light'
@@ -140,8 +156,8 @@ function MobileNavSection({ item, onNavigate }) {
           <ul className="space-y-1">
             {item.links.map((link) => (
               <li key={link.label}>
-                <Link
-                  to={link.to}
+                <MenuLink
+                  link={link}
                   onClick={onNavigate}
                   className="flex items-center justify-between rounded-md px-3 py-2.5 text-sm text-cream/80 transition-colors hover:bg-white/5 hover:text-cream"
                 >
@@ -152,7 +168,7 @@ function MobileNavSection({ item, onNavigate }) {
                     )}
                   </span>
                   <ArrowRight size={14} className="text-cream-muted" />
-                </Link>
+                </MenuLink>
               </li>
             ))}
           </ul>

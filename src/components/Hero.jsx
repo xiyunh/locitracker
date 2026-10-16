@@ -36,6 +36,8 @@ export default function Hero() {
         <source src="/video/hero-loop-v2.webm" type="video/webm" />
         <source src="/video/hero-loop-v2.mp4" type="video/mp4" />
       </video>
+      {/* soft scrim behind the side notes */}
+      <div aria-hidden="true" className="absolute inset-y-0 right-0 hidden w-[38%] bg-gradient-to-l from-charcoal/70 via-charcoal/30 to-transparent lg:block" />
       {/* keep the header readable over the darker shots */}
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-charcoal/90 to-transparent" />
       {/* a soft scrim on the text side so the words stay legible over the film */}
@@ -44,7 +46,7 @@ export default function Hero() {
       {/* the map dissolves into the white collection band below */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent via-white/60 to-white lg:h-64" />
 
-      <div className="relative z-10 mx-auto grid min-h-[94vh] w-full max-w-7xl items-center gap-12 px-6 pt-32 pb-16 lg:grid-cols-[minmax(0,40rem)_1fr] lg:px-10 lg:pt-36">
+      <div className="relative z-10 mx-auto grid min-h-[94vh] w-full max-w-7xl items-center gap-12 px-6 pt-32 pb-16 lg:grid-cols-[1fr_auto] lg:gap-10 lg:px-10 lg:pt-36">
         <div className="lg:pr-10">
           <motion.p {...reveal(0.15)} className="text-[0.62rem] tracking-[0.3em] text-cream-muted uppercase">
             The world&apos;s first sticker tracker
@@ -76,17 +78,18 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* dimension notes, a quiet row under the call to action */}
-          <ul className="mt-12 flex flex-wrap gap-x-10 gap-y-5 lg:mt-14">
-            {notes.map(([value, label], i) => (
-              <motion.li key={label} {...reveal(0.6 + i * 0.08)}>
-                <p className="font-sans text-2xl leading-none font-light tracking-tight text-cream/75 sm:text-3xl">{value}</p>
-                <p className="mt-1.5 text-[0.6rem] tracking-[0.25em] text-cream/45 uppercase">{label}</p>
-              </motion.li>
-            ))}
-          </ul>
         </div>
 
+        {/* dimension side notes, out on the film */}
+        <ul className="flex flex-wrap gap-x-8 gap-y-5 lg:flex-col lg:items-end lg:gap-8 lg:text-right">
+          {notes.map(([value, label], i) => (
+            <motion.li key={label} {...reveal(0.6 + i * 0.08)} className="[text-shadow:0_1px_12px_rgba(227,229,237,0.9)]">
+              <div className="hairline-gold hidden w-9 lg:ml-auto lg:block" />
+              <p className="mt-2 font-sans text-3xl leading-none font-light tracking-tight text-cream/80 sm:text-4xl">{value}</p>
+              <p className="mt-1.5 text-[0.62rem] tracking-[0.25em] text-cream/55 uppercase">{label}</p>
+            </motion.li>
+          ))}
+        </ul>
       </div>
     </section>
   )

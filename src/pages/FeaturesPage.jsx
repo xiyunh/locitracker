@@ -7,7 +7,7 @@ export default function FeaturesPage() {
   return (
     <>
       <PageHeader
-        label="Why LOCI"
+        label="Why Loci"
         title="Built to"
         emphasis="find anything"
         subtitle="Sticker-thin design, the Loci network, and privacy built in from day one."
