@@ -42,7 +42,7 @@ export default function Hero() {
           >
             Find
             <br />
-            <span className="text-[#c9ab6e]">anything.</span>
+            <span className="text-[#8d97a9]">anything.</span>
           </motion.h1>
 
           <motion.p {...reveal(0.3)} className="mt-8 max-w-sm text-base leading-relaxed text-cream/55">
