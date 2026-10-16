@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -23,6 +24,13 @@ export default function Hero() {
   const { scrollY } = useScroll()
   const mapY = useTransform(scrollY, [0, 700], [0, 60])
 
+  // the sheen follows the pointer, like real glass catching light
+  const trackSheen = useCallback((event) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    event.currentTarget.style.setProperty('--mx', `${((event.clientX - rect.left) / rect.width) * 100}%`)
+    event.currentTarget.style.setProperty('--my', `${((event.clientY - rect.top) / rect.height) * 100}%`)
+  }, [])
+
   return (
     <section className="relative overflow-hidden pt-28 lg:pt-32">
       {/* world map / GPS backdrop — the glass refracts this */}
@@ -39,6 +47,7 @@ export default function Hero() {
           initial={{ opacity: 0, x: -24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          onMouseMove={trackSheen}
           className="liquid-glass flex items-center rounded-[2.5rem] px-8 py-14 sm:px-12 lg:px-16 lg:py-20"
         >
           <div className="relative z-10">
@@ -66,7 +75,7 @@ export default function Hero() {
               </Button>
               <Link
                 to="/product/loci-sticker-single"
-                className="text-sm text-cream/60 underline-offset-4 transition-colors hover:text-cream hover:underline"
+                className="btn-glass inline-flex min-h-[3.25rem] items-center rounded-md px-7 text-sm font-medium text-cream"
               >
                 See the sticker
               </Link>
