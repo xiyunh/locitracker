@@ -24,8 +24,8 @@ export default function Hero() {
   const mapY = useTransform(scrollY, [0, 700], [0, 60])
 
   return (
-    <section className="relative overflow-hidden pt-32 pb-10 lg:pt-36">
-      {/* world map / GPS backdrop — stronger so the glass has something to refract */}
+    <section className="relative overflow-hidden pt-28 lg:pt-32">
+      {/* world map / GPS backdrop — the glass refracts this */}
       <motion.div
         style={{ y: mapY }}
         className="pointer-events-none absolute top-[-6%] left-1/2 aspect-[2/1] w-[min(1500px,120%)] -translate-x-1/2 [mask-image:radial-gradient(ellipse_80%_75%_at_50%_50%,black_55%,transparent_98%)] [-webkit-mask-image:radial-gradient(ellipse_80%_75%_at_50%_50%,black_55%,transparent_98%)]"
@@ -33,22 +33,22 @@ export default function Hero() {
         <WorldMap className="h-full w-full" />
       </motion.div>
 
-      {/* one liquid-glass slab spanning the whole hero */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="liquid-glass relative mx-3 flex min-h-[78vh] items-center rounded-[2.5rem] md:mx-6"
-      >
-        <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-8 py-16 sm:px-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 lg:px-16 lg:py-20">
-          <div>
+      <div className="relative z-10 mx-auto grid min-h-[86vh] w-full max-w-7xl items-stretch gap-10 px-3 md:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-10">
+        {/* a single tall glass column, only behind the text */}
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="liquid-glass flex items-center rounded-[2.5rem] px-8 py-14 sm:px-12 lg:px-16 lg:py-20"
+        >
+          <div className="relative z-10">
             <motion.p {...reveal(0.15)} className="text-[0.62rem] tracking-[0.3em] text-cream-muted uppercase">
               The world&apos;s first sticker tracker
             </motion.p>
 
             <motion.h1
               {...reveal(0.25)}
-              className="mt-7 font-display text-7xl leading-[0.93] font-medium tracking-tight text-cream sm:text-8xl lg:text-[7.4rem]"
+              className="mt-7 font-display text-7xl leading-[0.93] font-medium tracking-tight text-cream sm:text-8xl lg:text-[7.2rem]"
             >
               Find
               <br />
@@ -72,18 +72,19 @@ export default function Hero() {
               </Link>
             </motion.div>
           </div>
+        </motion.div>
 
-          <ul className="flex flex-wrap gap-x-8 gap-y-5 lg:flex-col lg:items-end lg:gap-7 lg:text-right">
-            {notes.map(([value, label], i) => (
-              <motion.li key={label} {...reveal(0.6 + i * 0.08)}>
-                <div className="hairline-gold hidden w-9 lg:ml-auto lg:block" />
-                <p className="mt-2 font-sans text-3xl leading-none font-light tracking-tight text-cream/75 sm:text-4xl">{value}</p>
-                <p className="mt-1.5 text-[0.62rem] tracking-[0.25em] text-cream/40 uppercase">{label}</p>
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-      </motion.div>
+        {/* dimension side notes, out on the map */}
+        <ul className="flex flex-wrap items-center gap-x-8 gap-y-5 px-4 pb-10 lg:flex-col lg:items-end lg:justify-center lg:gap-8 lg:pb-0 lg:text-right">
+          {notes.map(([value, label], i) => (
+            <motion.li key={label} {...reveal(0.6 + i * 0.08)}>
+              <div className="hairline-gold hidden w-9 lg:ml-auto lg:block" />
+              <p className="mt-2 font-sans text-3xl leading-none font-light tracking-tight text-cream/75 sm:text-4xl">{value}</p>
+              <p className="mt-1.5 text-[0.62rem] tracking-[0.25em] text-cream/40 uppercase">{label}</p>
+            </motion.li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

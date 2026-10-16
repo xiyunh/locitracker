@@ -293,21 +293,21 @@ html {
 .bg-white\/\[0\.04\] { background-color: rgba(22, 38, 60, 0.045); }
 .bg-white\/\[0\.045\] { background-color: rgba(22, 38, 60, 0.05); }
 
-/* ── liquid glass: deeper refraction, specular sheen, luminous rim ── */
+/* ── liquid glass: see-through, with refraction tints and a moving sheen ── */
 .liquid-glass {
   position: relative;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.34) 48%, rgba(255, 255, 255, 0.5) 100%);
-  backdrop-filter: blur(42px) saturate(1.9) brightness(1.04);
-  -webkit-backdrop-filter: blur(42px) saturate(1.9) brightness(1.04);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 55%, rgba(255, 255, 255, 0.18) 100%);
+  backdrop-filter: blur(26px) saturate(1.7) brightness(1.03);
+  -webkit-backdrop-filter: blur(26px) saturate(1.7) brightness(1.03);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
     inset 0 -1px 0 rgba(22, 38, 60, 0.06),
-    inset 1px 0 0 rgba(255, 255, 255, 0.5),
-    0 0 0 1px rgba(22, 38, 60, 0.07),
-    0 30px 80px rgba(23, 37, 60, 0.16);
+    inset 1px 0 0 rgba(255, 255, 255, 0.35),
+    0 0 0 1px rgba(22, 38, 60, 0.06),
+    0 30px 80px rgba(23, 37, 60, 0.14);
 }
+/* refraction tints: faint blue / lilac / warm shifts that drift slowly */
 .liquid-glass::before {
   content: '';
   position: absolute;
@@ -315,6 +315,31 @@ html {
   border-radius: inherit;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 55% 40% at 18% 0%, rgba(255, 255, 255, 0.75), transparent 70%),
-    radial-gradient(ellipse 40% 30% at 92% 100%, rgba(255, 255, 255, 0.35), transparent 70%);
+    linear-gradient(
+      115deg,
+      rgba(120, 165, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0) 28%,
+      rgba(205, 170, 255, 0.12) 46%,
+      rgba(255, 255, 255, 0) 62%,
+      rgba(255, 205, 170, 0.1) 80%,
+      rgba(150, 225, 255, 0.12) 100%
+    );
+  background-size: 220% 220%;
+  animation: glass-drift 14s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+/* specular sheen */
+.liquid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 35% at 15% 0%, rgba(255, 255, 255, 0.55), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 100% 100%, rgba(255, 255, 255, 0.28), transparent 70%);
+}
+@keyframes glass-drift {
+  from { background-position: 0% 0%; }
+  to { background-position: 100% 100%; }
 }
