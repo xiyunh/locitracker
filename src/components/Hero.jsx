@@ -34,6 +34,9 @@ export default function Hero() {
         <WorldMap className="h-full w-full blur-[4px]" />
       </motion.div>
 
+      {/* the map dissolves into the white collection band below */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent via-white/60 to-white lg:h-64" />
+
       <div className="relative z-10 mx-auto grid min-h-[94vh] w-full max-w-7xl items-center gap-12 px-6 pt-32 pb-16 lg:grid-cols-[0.9fr_1.2fr_auto] lg:gap-6 lg:px-10 lg:pt-36">
         <div className="lg:pr-10">
           <motion.p {...reveal(0.15)} className="text-[0.62rem] tracking-[0.3em] text-cream-muted uppercase">

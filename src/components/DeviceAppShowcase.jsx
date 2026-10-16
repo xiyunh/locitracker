@@ -76,7 +76,7 @@ function AppMockup() {
 
 export default function DeviceAppShowcase() {
   return (
-    <section className="mx-3 my-6 rounded-[2rem] bg-[#d9e0ee] py-20 md:mx-6 lg:py-28">
+    <section className="mx-3 mb-6 rounded-[2rem] bg-[#d9e0ee] py-20 md:mx-6 lg:py-28">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-10">
         <AppMockup />
 

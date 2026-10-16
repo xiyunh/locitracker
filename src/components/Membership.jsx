@@ -33,7 +33,7 @@ const featuredProducts = [
 
 export default function Membership() {
   return (
-    <section className="my-6 bg-white py-12 lg:py-16">
+    <section className="bg-white pt-4 lg:pt-6">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div>
           <div className="grid gap-4 md:grid-cols-3 md:gap-5">
@@ -69,8 +69,10 @@ export default function Membership() {
             ))}
           </div>
         </div>
-
       </div>
+
+      {/* ease back out to the page tone */}
+      <div aria-hidden="true" className="h-28 bg-gradient-to-b from-white to-charcoal lg:h-36" />
     </section>
   )
 }
