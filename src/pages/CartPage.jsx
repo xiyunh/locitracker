@@ -6,7 +6,6 @@ import Placeholder from '../components/Placeholder'
 import { productImages } from '../data/productImages'
 import { Button, Eyebrow } from '../components/ui'
 import { panelClass } from '../lib/ui'
-import { formatCurrency } from '../data/catalog'
 import { useStore } from '../context/store'
 
 export default function CartPage() {
@@ -97,9 +96,6 @@ export default function CartPage() {
                     </div>
 
                     <div className="flex items-center justify-between gap-6 sm:flex-col sm:items-end">
-                      <p className="font-display text-2xl font-medium text-cream">
-                        {formatCurrency(item.price * item.quantity)}
-                      </p>
                       <div className="flex items-center rounded-md border border-white/15 bg-white/5">
                         <button
                           type="button"
@@ -163,24 +159,9 @@ export default function CartPage() {
                 <span>Items</span>
                 <span>{itemCount}</span>
               </div>
-              <div className="flex justify-between text-cream/70">
-                <span>Subtotal</span>
-                <span>{formatCurrency(subtotal)}</span>
-              </div>
-              <div className="flex justify-between text-cream/70">
-                <span>Shipping</span>
-                <span>{shipping === 0 ? 'Free' : formatCurrency(shipping)}</span>
-              </div>
-              <div className="flex justify-between text-cream/70">
-                <span>Estimated tax</span>
-                <span>{formatCurrency(tax)}</span>
-              </div>
-              <div className="border-t border-white/10 pt-4">
-                <div className="flex justify-between font-display text-2xl font-medium text-cream">
-                  <span>Total</span>
-                  <span>{formatCurrency(total)}</span>
-                </div>
-              </div>
+              <p className="border-t border-white/10 pt-4 text-cream/55">
+                Pricing will be announced at launch.
+              </p>
             </div>
 
             <Button

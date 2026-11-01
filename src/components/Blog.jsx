@@ -23,15 +23,15 @@ export default function Blog() {
           </h2>
         </ScrollReveal>
 
-        <ScrollReveal variant="fade" delay={1} className="marquee mt-12 overflow-hidden border-y border-white/10 py-5">
-          <div className="marquee-track">
-            {[...posts, ...posts, ...posts, ...posts, ...posts, ...posts].map((p, i) => (
+        <ScrollReveal variant="fade" delay={1} className="marquee mt-12 overflow-hidden border-y border-cream/10 py-3.5">
+          <div className="marquee-track" aria-hidden="true">
+            {[...posts, ...posts, ...posts].map((p, i) => (
               <span
                 key={`${p.slug}-${i}`}
-                className="flex items-center gap-10 pr-10 font-display text-2xl text-cream/70 italic"
+                className="flex items-center gap-8 pr-8 text-[0.68rem] font-medium tracking-[0.25em] whitespace-nowrap text-cream/45 uppercase"
               >
-                {p.tag}
-                <span className="h-1.5 w-1.5 rounded-full bg-gold/70" aria-hidden="true" />
+                {p.title}
+                <span className="h-1 w-1 rounded-full bg-gold/60" aria-hidden="true" />
               </span>
             ))}
           </div>

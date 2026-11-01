@@ -1,101 +1,139 @@
-import { Key, Luggage, Dog, Bike, Users, Radar } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import ScrollReveal from './ScrollReveal'
+import Placeholder from './Placeholder'
+import { Eyebrow } from './ui'
 
-const features = [
-  {
-    icon: Key,
-    category: 'Keys, Wallet & Passport',
-    title: 'Never wonder where your',
-    emphasis: 'keys went',
-    gradient: 'from-brand/90 to-charcoal',
-  },
-  {
-    icon: Luggage,
-    category: 'Bags & Luggage',
-    title: 'Track your bags from',
-    emphasis: 'check-in to pickup',
-    gradient: 'from-brand/70 to-charcoal-mid',
-  },
-  {
-    icon: Dog,
-    category: 'Pets',
-    title: 'Keep tabs on collars',
-    emphasis: 'and carriers',
-    gradient: 'from-charcoal-mid to-charcoal',
-  },
-  {
-    icon: Bike,
-    category: 'Bike & Gear',
-    title: 'Secure what you ride',
-    emphasis: 'and wear',
-    gradient: 'from-brand/80 to-charcoal',
-  },
-  {
-    icon: Users,
-    category: 'Shared Items',
-    title: 'Share location with',
-    emphasis: 'family & friends',
-    gradient: 'from-brand/60 to-charcoal-mid',
-  },
-  {
-    icon: Radar,
-    category: 'Find nearby',
-    title: 'Sound and distance cues',
-    emphasis: 'right to your Loci',
-    gradient: 'from-brand to-charcoal',
-  },
-]
-
-function FeatureCard({ feature, index, featured = false, wide = false }) {
-  const Icon = feature.icon
-  const layout = featured
-    ? 'min-h-[360px] p-8 lg:col-span-2 lg:row-span-2 lg:min-h-[560px] lg:p-12'
-    : wide
-      ? 'min-h-[220px] p-8 lg:col-span-4 lg:p-10'
-      : 'min-h-[260px] p-8'
+function SpecRow({ items }) {
   return (
-    <ScrollReveal
-      as="article"
-      variant="up"
-      delay={index}
-      className={`vignette card-lift group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br ${feature.gradient} hover:border-gold/30 ${layout}`}
-    >
-      <div className="absolute inset-0 bg-charcoal/25 transition-opacity duration-700 group-hover:opacity-0" />
-      <div className="relative z-10 flex h-full flex-col justify-between">
-        <div className="flex items-start justify-between">
-          <span className="numeral text-3xl">{String(index + 1).padStart(2, '0')}</span>
-          <Icon size={featured ? 34 : 24} strokeWidth={1.1} className="text-gold/80" />
+    <p className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.65rem] font-medium tracking-[0.25em] text-cream-muted uppercase">
+      {items.map((item, i) => (
+        <span key={item} className="flex items-center gap-4">
+          {i > 0 && <span className="h-1 w-1 rounded-full bg-gold/60" aria-hidden="true" />}
+          {item}
+        </span>
+      ))}
+    </p>
+  )
+}
+
+function Row({ image, eyebrow, title, children, reversed = false, specs }) {
+  return (
+    <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
+      <ScrollReveal
+        variant={reversed ? 'right' : 'left'}
+        className={reversed ? 'lg:order-2' : ''}
+      >
+        {image}
+      </ScrollReveal>
+      <ScrollReveal
+        variant={reversed ? 'left' : 'right'}
+        delay={1}
+        className={reversed ? 'lg:order-1' : ''}
+      >
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h2 className="mt-4 max-w-md font-display text-4xl leading-[1.02] font-medium text-cream lg:text-5xl">
+          {title}
+        </h2>
+        <div className="mt-5 max-w-md space-y-4 text-[15px] leading-relaxed text-cream-muted">
+          {children}
         </div>
-        <div>
-          <p className="text-[0.65rem] tracking-[0.3em] text-cream/55 uppercase">{feature.category}</p>
-          <h3
-            className={`mt-3 font-display leading-[1.05] font-medium text-cream ${
-              featured ? 'text-4xl lg:text-6xl' : wide ? 'max-w-3xl text-3xl lg:text-5xl' : 'text-3xl'
-            }`}
-          >
-            {feature.title} <em className="font-normal text-gold-light">{feature.emphasis}</em>
-          </h3>
-        </div>
-      </div>
-    </ScrollReveal>
+        {specs && <SpecRow items={specs} />}
+      </ScrollReveal>
+    </div>
   )
 }
 
 export default function Features() {
   return (
-    <section id="features" className="bg-charcoal py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((feature, i) => (
-            <FeatureCard
-              key={feature.category}
-              feature={feature}
-              index={i}
-              featured={i === 0}
-              wide={i === features.length - 1}
+    <section id="features" className="py-16 lg:py-24">
+      <div className="mx-auto max-w-6xl space-y-24 px-6 lg:space-y-32 lg:px-10">
+        <Row
+          eyebrow="Sticks to anything"
+          title={
+            <>
+              Thin enough to <em className="text-gold">disappear.</em>
+            </>
+          }
+          image={
+            <Placeholder
+              label="Photo — macro close-up: a fingertip peeling a Loci sticker from its backing card, soft daylight"
+              aspect="aspect-[4/5]"
             />
-          ))}
-        </div>
+          }
+          specs={['<2 mm thin', '22 months battery', 'Re-stickable']}
+        >
+          <p>
+            Loci is not a tag you clip on — it is a sticker you press on. At under two
+            millimeters it slips inside a passport cover, under a laptop, behind a remote,
+            places a bulky tracker could never go.
+          </p>
+          <p>
+            Peel it, stick it, and forget it is there until the moment you need it.
+          </p>
+        </Row>
+
+        {/* Pull quote — a breath between rows */}
+        <ScrollReveal variant="fade" className="mx-auto max-w-3xl text-center">
+          <span className="hairline-gold mx-auto block w-16" aria-hidden="true" />
+          <p className="mt-8 font-display text-3xl leading-tight font-medium text-cream sm:text-4xl lg:text-5xl">
+            It doesn&apos;t clip on. <em className="text-gold">It sticks on.</em>
+          </p>
+          <span className="hairline-gold mx-auto mt-8 block w-16" aria-hidden="true" />
+        </ScrollReveal>
+
+        <Row
+          reversed
+          eyebrow="Everyday carry"
+          title={
+            <>
+              Never wonder where your <em className="text-gold">things went.</em>
+            </>
+          }
+          image={
+            <Placeholder
+              label="Photo — lifestyle flat-lay: keys, wallet, passport and headphones on an entry table, Loci stickers just visible"
+              aspect="aspect-[4/3]"
+            />
+          }
+        >
+          <p>
+            Keys on the counter, a wallet in yesterday&apos;s jacket, luggage somewhere
+            between check-in and the carousel, the pet carrier, the bike in the garage —
+            if it leaves the house with you, a Loci can bring it back.
+          </p>
+          <p>
+            Share anything with family and friends, so the people who borrow your things
+            can find them too.
+          </p>
+        </Row>
+
+        <Row
+          eyebrow="The Loci network"
+          title={
+            <>
+              Found, even <em className="text-gold">far away.</em>
+            </>
+          }
+          image={
+            <Placeholder
+              label="Photo — hand holding a phone with the Loci app map open, evening city bokeh behind"
+              aspect="aspect-[4/5]"
+            />
+          }
+        >
+          <p>
+            Nearby, the Loci app guides you with sound and distance cues. Farther out, the
+            Loci network quietly relays an item&apos;s last known location back to you —
+            encrypted and anonymous the whole way.
+          </p>
+          <p className="text-sm">
+            Private by design.{' '}
+            <Link to="/privacy" className="text-gold underline-offset-4 hover:underline">
+              Read how we handle data
+            </Link>
+            .
+          </p>
+        </Row>
       </div>
     </section>
   )

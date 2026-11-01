@@ -7,6 +7,7 @@ export default function FeaturesPage() {
   return (
     <>
       <PageHeader
+        tone="navy"
         label="Why Loci"
         title="Built to"
         emphasis="find anything"

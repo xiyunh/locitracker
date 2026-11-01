@@ -7,9 +7,9 @@ import { useStore } from '../context/store'
 import productShot from '../assets/product-stickers.webp'
 
 const perks = [
-  'Your bag and pre order, saved across visits',
+  'One account for the website and the Loci app',
+  'Your bag and waitlist, saved across visits',
   'Addresses and shipping preferences on file for a faster checkout',
-  'Order history and launch updates in one place',
 ]
 
 const reveal = (delay = 0) => ({
@@ -19,15 +19,49 @@ const reveal = (delay = 0) => ({
 })
 
 export default function JoinPage() {
-  const { account, signIn } = useStore()
+  const { account, authMode, signUp, signInWithPassword, resetPassword, signInLocal } = useStore()
   const navigate = useNavigate()
-  const [form, setForm] = useState({ name: '', email: '' })
+  const [mode, setMode] = useState('signUp') // signUp | signIn | forgot
+  const [form, setForm] = useState({ name: '', email: '', password: '' })
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState(null)
+  const [notice, setNotice] = useState(null)
 
   if (account) return <Navigate to="/account" replace />
 
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault()
-    signIn(form)
+    setError(null)
+    setNotice(null)
+
+    // Local fallback when the backend is not configured (dev only).
+    if (authMode === 'local') {
+      signInLocal(form)
+      navigate('/account', { replace: true })
+      return
+    }
+
+    setBusy(true)
+    if (mode === 'forgot') {
+      const result = await resetPassword(form.email)
+      setBusy(false)
+      if (!result.ok) return setError(result.error)
+      return setNotice('Password reset email sent — check your inbox.')
+    }
+    if (mode === 'signIn') {
+      const result = await signInWithPassword(form)
+      setBusy(false)
+      if (!result.ok) return setError(result.error)
+      return navigate('/account', { replace: true })
+    }
+    const result = await signUp(form)
+    setBusy(false)
+    if (!result.ok) return setError(result.error)
+    if (result.needsConfirmation) {
+      return setNotice(
+        'Almost there — we sent a confirmation link to your email. It signs you in here and works for the Loci app too.',
+      )
+    }
     navigate('/account', { replace: true })
   }
 
@@ -63,27 +97,31 @@ export default function JoinPage() {
       {/* the form */}
       <div className="flex items-center bg-white px-6 pt-36 pb-20 lg:px-16 lg:pt-40">
         <motion.div {...reveal(0.15)} className="mx-auto w-full max-w-md">
-          <p className="text-[0.62rem] tracking-[0.3em] text-cream-muted uppercase">Create account</p>
+          <p className="text-[0.62rem] tracking-[0.3em] text-cream-muted uppercase">
+            {mode === 'signIn' ? 'Sign in' : mode === 'forgot' ? 'Reset password' : 'Create account'}
+          </p>
           <h1 className="mt-5 font-display text-6xl leading-[0.95] font-medium tracking-tight text-cream sm:text-7xl">
             Keep track of
             <br />
             <span className="text-[#8d97a9]">your Loci.</span>
           </h1>
           <p className="mt-6 max-w-sm text-base leading-relaxed text-cream/60">
-            Save your bag, addresses, and pre order. No password to remember.
+            One Loci account for the website and the app — your tags, bag, and waitlist together.
           </p>
 
           <form onSubmit={submit} className="mt-10 space-y-5">
-            <Field
-              id="join-name"
-              name="name"
-              label="Full name"
-              autoComplete="name"
-              required
-              placeholder="Your name"
-              value={form.name}
-              onChange={(event) => setForm({ ...form, name: event.target.value })}
-            />
+            {mode === 'signUp' && (
+              <Field
+                id="join-name"
+                name="name"
+                label="Full name"
+                autoComplete="name"
+                required
+                placeholder="Your name"
+                value={form.name}
+                onChange={(event) => setForm({ ...form, name: event.target.value })}
+              />
+            )}
             <Field
               id="join-email"
               name="email"
@@ -95,14 +133,55 @@ export default function JoinPage() {
               value={form.email}
               onChange={(event) => setForm({ ...form, email: event.target.value })}
             />
-            <Button type="submit" size="lg" className="group w-full text-base">
-              Create account
+            {mode !== 'forgot' && authMode === 'supabase' && (
+              <Field
+                id="join-password"
+                name="password"
+                type="password"
+                label="Password"
+                autoComplete={mode === 'signUp' ? 'new-password' : 'current-password'}
+                required
+                minLength={8}
+                placeholder="At least 8 characters"
+                value={form.password}
+                onChange={(event) => setForm({ ...form, password: event.target.value })}
+              />
+            )}
+
+            {error && <p className="text-sm text-red-700">{error}</p>}
+            {notice && <p className="text-sm text-cream/75">{notice}</p>}
+
+            <Button type="submit" size="lg" disabled={busy} className="group w-full text-base">
+              {busy
+                ? 'One moment…'
+                : mode === 'signIn'
+                  ? 'Sign in'
+                  : mode === 'forgot'
+                    ? 'Send reset link'
+                    : 'Create account'}
               <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
             </Button>
           </form>
 
-          <p className="mt-6 text-xs leading-relaxed text-cream-muted">
-            Already have one? Enter the same name and email to pick up where you left off.
+          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-xs leading-relaxed text-cream-muted">
+            {mode !== 'signUp' && (
+              <button type="button" onClick={() => setMode('signUp')} className="underline underline-offset-4 hover:text-cream">
+                Create an account
+              </button>
+            )}
+            {mode !== 'signIn' && (
+              <button type="button" onClick={() => setMode('signIn')} className="underline underline-offset-4 hover:text-cream">
+                Already have one? Sign in
+              </button>
+            )}
+            {mode === 'signIn' && (
+              <button type="button" onClick={() => setMode('forgot')} className="underline underline-offset-4 hover:text-cream">
+                Forgot password?
+              </button>
+            )}
+          </div>
+          <p className="mt-3 text-xs leading-relaxed text-cream-muted">
+            Same account as the Loci app — sign in with the email and password you use there.
           </p>
           <p className="mt-3 text-xs leading-relaxed text-cream-muted">
             By continuing you agree to our{' '}

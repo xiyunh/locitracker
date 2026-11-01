@@ -62,7 +62,7 @@ export function downloadPreOrdersCsv() {
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
   link.href = url
-  link.download = `loci-preorders-${new Date().toISOString().slice(0, 10)}.csv`
+  link.download = `loci-waitlist-${new Date().toISOString().slice(0, 10)}.csv`
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)

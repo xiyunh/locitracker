@@ -1,279 +1,190 @@
 import { useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { ArrowRight, CheckCircle2, Download, Sparkles } from 'lucide-react'
-import PageHeader from '../components/PageHeader'
-import StickerTag from '../components/StickerTag'
-import { useStore } from '../context/store'
+import { useSearchParams } from 'react-router-dom'
+import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal'
-import { Button, Eyebrow } from '../components/ui'
-import { badgeClass, inputClass as baseInput, labelClass, panelClass } from '../lib/ui'
-import { catalog, formatCurrency, getProductById, productLabel } from '../data/catalog'
+import WorldMap from '../components/WorldMap'
+import { Button } from '../components/ui'
+import { inputClass, labelClass } from '../lib/ui'
+import { catalog, getProductById, productLabel } from '../data/catalog'
 import {
   createSubmissionId,
-  downloadPreOrdersCsv,
-  readPreOrders,
   savePreOrderLocally,
   savePreOrderToSupabase,
 } from '../services/preorderApi'
 
-const perks = ['Early access before launch', 'No payment collected today', 'Product updates by email']
-
-const inputClass = `mt-2 ${baseInput}`
-
-const optionDetails = {
-  'loci-sticker-single': {
-    tagline: 'One tracker for the thing you lose most.',
-    bullets: ['1 Loci Sticker', 'Adhesive pad applied', 'First-drop priority'],
-  },
-  'loci-sticker-four-pack': {
-    tagline: 'Cover everything that leaves the house with you.',
-    bullets: ['4 Loci Stickers', 'Save $17 vs singles', 'Cover every essential'],
-  },
-}
-
-function OptionCard({ product, index }) {
-  const navigate = useNavigate()
-  const { addToCart } = useStore()
-  const detail = optionDetails[product.id]
-
-  return (
-    <ScrollReveal
-      as="article"
-      variant="up"
-      delay={index}
-      className="card-lift group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-brand/45 via-charcoal-mid to-charcoal p-8 hover:border-gold/40 lg:p-10"
-    >
-      {product.badge && <span className={`${badgeClass} absolute top-6 right-6`}>{product.badge}</span>}
-
-      <div className="flex h-40 items-center justify-center">
-        {product.tagStyle === 'single' ? (
-          <StickerTag peel sheen size={112} className="drop-shadow-[0_20px_36px_rgba(0,0,0,0.45)]" />
-        ) : (
-          <div className="grid grid-cols-2 gap-4">
-            <StickerTag size={58} />
-            <StickerTag size={58} />
-            <StickerTag size={58} />
-            <StickerTag size={58} peel />
-          </div>
-        )}
-      </div>
-
-      <h2 className="mt-8 font-display text-3xl font-medium text-cream">
-        {product.name} <em className="font-normal text-gold-light">{product.variant}</em>
-      </h2>
-      <p className="mt-2 text-sm leading-relaxed text-cream/65">{detail.tagline}</p>
-
-      <ul className="mt-6 space-y-2.5 border-t border-white/10 pt-6">
-        {detail.bullets.map((bullet) => (
-          <li key={bullet} className="flex items-center gap-3 text-sm text-cream/75">
-            <span className="h-px w-4 shrink-0 bg-gold/60" aria-hidden="true" />
-            {bullet}
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-8 flex items-center justify-between gap-4 border-t border-white/10 pt-6">
-        <span className="font-display text-3xl font-medium text-cream">
-          {formatCurrency(product.price)}
-        </span>
-        <Button
-          onClick={() => {
-            addToCart(product.id)
-            navigate('/cart')
-          }}
-          className="group/btn"
-        >
-          Pre order
-          <ArrowRight size={15} className="transition-transform group-hover/btn:translate-x-1" />
-        </Button>
-      </div>
-    </ScrollReveal>
-  )
-}
-
 export default function PreOrderPage() {
   const [searchParams] = useSearchParams()
   const requested = getProductById(searchParams.get('product'))
-  const defaultProduct = productLabel(requested ?? catalog[0])
   const trackers = catalog.filter((product) => product.category === 'Tracker')
 
-  return (
-    <>
-      <PageHeader
-        label="Pre order"
-        title="Reserve your"
-        emphasis="Loci"
-        subtitle="Pick your pack and secure your place in the first drop. Checkout takes under a minute."
-      />
-
-      <section className="bg-charcoal pt-16 pb-20 lg:pt-20">
-        <div className="mx-auto grid max-w-4xl gap-6 px-6 md:grid-cols-2 lg:px-10">
-          {trackers.map((product, index) => (
-            <OptionCard key={product.id} product={product} index={index} />
-          ))}
-        </div>
-      </section>
-
-      <div className="border-t border-white/5">
-        {/* Keyed on the requested product so the form resets when the query changes. */}
-        <PreOrderForm key={defaultProduct} defaultProduct={defaultProduct} />
-      </div>
-    </>
-  )
-}
-
-function PreOrderForm({ defaultProduct }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [product, setProduct] = useState(defaultProduct)
+  const [selected, setSelected] = useState(
+    requested?.category === 'Tracker' ? requested : trackers[0],
+  )
   const [submitted, setSubmitted] = useState(false)
   const [saveStatus, setSaveStatus] = useState('idle')
-  const [savedCount, setSavedCount] = useState(0)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    if (!name.trim() || !email.trim() || !product) return
+    if (!name.trim() || !email.trim() || !selected) return
 
     setSaveStatus('saving')
     const submission = {
       id: createSubmissionId(email),
       name: name.trim(),
       email: email.trim().toLowerCase(),
-      product,
+      product: productLabel(selected),
       createdAt: new Date().toISOString(),
     }
 
     savePreOrderLocally(submission)
-    setSavedCount(readPreOrders().length)
-
     try {
-      const savedToSupabase = await savePreOrderToSupabase(submission)
-      setSaveStatus(savedToSupabase ? 'saved-supabase' : 'saved-local')
+      await savePreOrderToSupabase(submission)
     } catch {
-      setSaveStatus('saved-local')
+      // Saved locally either way; the waitlist entry is not lost.
     }
-
+    setSaveStatus('idle')
     setSubmitted(true)
   }
 
   return (
-    <section className="bg-charcoal py-20 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-10">
-        <ScrollReveal variant="left" delay={0}>
-          <Eyebrow>Limited early access</Eyebrow>
-          <h2 className="mt-5 max-w-xl font-display text-4xl leading-[1.05] font-medium text-cream sm:text-5xl">
-            Be first in line when the next Loci drop ships.
-          </h2>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-cream/70">
-            Pre-orders are saved for launch day so you can check out with priority access and
-            launch pricing.
-          </p>
-          <ul className="mt-8 space-y-3">
-            {perks.map((perk, i) => (
-              <ScrollReveal
-                key={perk}
-                as="li"
-                variant="left"
-                delay={i + 1}
-                className="flex items-center gap-3 text-sm text-cream/80"
-              >
-                <Sparkles size={16} className="shrink-0 text-gold-light" />
-                {perk}
-              </ScrollReveal>
-            ))}
-          </ul>
-          <Link
-            to="/shop"
-            className="mt-8 inline-flex items-center gap-2 text-sm text-cream underline-offset-4 transition-colors hover:text-gold-light hover:underline"
-          >
-            Or shop what&apos;s in stock
-            <ArrowRight size={15} />
-          </Link>
-        </ScrollReveal>
+    <div className="px-3 pt-28 pb-6 md:px-6 lg:pt-32">
+      <section className="liquid-glass-ink relative flex min-h-[calc(100vh-9rem)] items-center overflow-hidden rounded-[2rem] px-6 py-20 lg:px-10">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_80%_90%_at_50%_40%,black_20%,transparent_75%)] [-webkit-mask-image:radial-gradient(ellipse_80%_90%_at_50%_40%,black_20%,transparent_75%)]"
+        >
+          <WorldMap className="h-full w-full scale-[1.4]" />
+        </div>
+        <div aria-hidden="true" className="absolute inset-0 overflow-hidden rounded-[2rem]">
+          {[
+            { top: '12%', delay: '0s', dur: '9s', scale: 1 },
+            { top: '32%', delay: '4.2s', dur: '11s', scale: 0.7 },
+            { top: '58%', delay: '7.5s', dur: '10s', scale: 0.85 },
+            { top: '74%', delay: '2.4s', dur: '13s', scale: 0.55 },
+            { top: '22%', delay: '10s', dur: '14s', scale: 0.45 },
+          ].map((star, i) => (
+            <span
+              key={i}
+              className="shooting-star"
+              style={{ '--top': star.top, '--delay': star.delay, '--dur': star.dur, '--scale': star.scale }}
+            />
+          ))}
+        </div>
 
-        <ScrollReveal variant="right" delay={1} className={`${panelClass} p-6 lg:p-8`}>
-          {submitted ? (
-            <div className="py-6 text-center">
-              <CheckCircle2 size={36} strokeWidth={1.4} className="mx-auto text-gold-light" />
-              <h3 className="mt-6 font-display text-4xl font-medium text-cream">You are on the list.</h3>
-              <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-cream/65">
-                Thanks, {name}. We saved your pre-order interest for {product} and will send launch
-                updates to {email}.
-              </p>
-              <p className="mx-auto mt-3 max-w-sm text-xs leading-relaxed text-cream/45">
-                {saveStatus === 'saved-supabase'
-                  ? 'This pre-order was added to Supabase and backed up locally.'
-                  : `This pre-order was saved locally. ${savedCount} saved pre-order${
-                      savedCount === 1 ? '' : 's'
-                    } can be exported for Excel.`}
-              </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Button onClick={downloadPreOrdersCsv}>
-                  <Download size={16} />
-                  Export pre-order CSV
+        <div className="relative mx-auto w-full max-w-xl text-center">
+          <ScrollReveal variant="up" delay={0}>
+            <p className="flex items-center justify-center gap-3 text-[0.65rem] font-medium tracking-[0.35em] text-gold uppercase">
+              <span className="h-px w-8 shrink-0 bg-gold/70" aria-hidden="true" />
+              Waitlist
+              <span className="h-px w-8 shrink-0 bg-gold/70" aria-hidden="true" />
+            </p>
+            <h1 className="mt-6 font-display text-6xl leading-[0.98] font-medium tracking-tight text-cream lowercase sm:text-7xl">
+              reserve your loci
+            </h1>
+            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-cream/65">
+              First in line for the first drop. No payment today.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal
+            variant="up"
+            delay={1}
+            className="mt-10 rounded-2xl bg-white p-6 text-left shadow-2xl shadow-black/35 sm:p-8"
+          >
+            {submitted ? (
+              <div className="py-4 text-center">
+                <CheckCircle2 size={34} strokeWidth={1.4} className="mx-auto text-gold-light" />
+                <h2 className="mt-5 font-display text-4xl font-medium text-cream">
+                  You&rsquo;re on the list.
+                </h2>
+                <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-cream/65">
+                  Thanks, {name}. We saved your spot for the {selected.name} {selected.variant}{' '}
+                  and will email {email} when the first drop opens.
+                </p>
+              </div>
+            ) : (
+              <form className="space-y-5" onSubmit={handleSubmit}>
+                <fieldset>
+                  <legend className={labelClass}>Your pack</legend>
+                  <div className="mt-2 grid grid-cols-2 gap-2">
+                    {trackers.map((product) => {
+                      const active = selected?.id === product.id
+                      return (
+                        <button
+                          key={product.id}
+                          type="button"
+                          aria-pressed={active}
+                          onClick={() => setSelected(product)}
+                          className={`min-h-12 rounded-md border text-sm transition-colors ${
+                            active
+                              ? 'border-brand bg-brand text-white'
+                              : 'border-cream/15 text-cream/70 hover:border-cream/35 hover:text-cream'
+                          }`}
+                        >
+                          {product.variant}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </fieldset>
+                <div>
+                  <label htmlFor="waitlist-name" className={labelClass}>
+                    Name
+                  </label>
+                  <input
+                    id="waitlist-name"
+                    type="text"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    placeholder="Your name"
+                    required
+                    className={`mt-2 ${inputClass}`}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="waitlist-email" className={labelClass}>
+                    Email
+                  </label>
+                  <input
+                    id="waitlist-email"
+                    type="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="you@example.com"
+                    required
+                    className={`mt-2 ${inputClass}`}
+                  />
+                </div>
+                <Button type="submit" disabled={saveStatus === 'saving'} className="w-full">
+                  {saveStatus === 'saving' ? 'Saving…' : 'Join the waitlist'}
+                  <ArrowRight size={16} />
                 </Button>
-                <Button variant="secondary" onClick={() => setSubmitted(false)}>
-                  Edit details
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <form className="space-y-5" onSubmit={handleSubmit}>
-              <Eyebrow tone="light">Pre-order form</Eyebrow>
-              <div>
-                <label htmlFor="preorder-name" className={labelClass}>
-                  Name
-                </label>
-                <input
-                  id="preorder-name"
-                  type="text"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                  placeholder="Your name"
-                  required
-                  className={inputClass}
-                />
-              </div>
-              <div>
-                <label htmlFor="preorder-email" className={labelClass}>
-                  Email
-                </label>
-                <input
-                  id="preorder-email"
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="you@example.com"
-                  required
-                  className={inputClass}
-                />
-              </div>
-              <div>
-                <label htmlFor="preorder-product" className={labelClass}>
-                  Product to pre order
-                </label>
-                <select
-                  id="preorder-product"
-                  value={product}
-                  onChange={(event) => setProduct(event.target.value)}
-                  required
-                  className={`${inputClass} cursor-pointer bg-charcoal-mid`}
-                >
-                  {catalog.map((item) => (
-                    <option key={item.id} value={productLabel(item)}>
-                      {productLabel(item)} — {formatCurrency(item.price)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <Button type="submit" disabled={saveStatus === 'saving'} className="w-full">
-                {saveStatus === 'saving' ? 'Saving pre-order…' : 'Join the pre order list'}
-                <ArrowRight size={16} />
-              </Button>
-            </form>
-          )}
-        </ScrollReveal>
-      </div>
-    </section>
+              </form>
+            )}
+          </ScrollReveal>
+
+          <ScrollReveal
+            variant="fade"
+            delay={2}
+            as="p"
+            className="mx-auto mt-7 max-w-md text-sm leading-relaxed text-cream/65"
+          >
+            Loci is a sticker-thin tracker — under 2&nbsp;mm, with 22 months of battery.
+            You&rsquo;ll be notified the moment Loci drops.
+          </ScrollReveal>
+
+          <ScrollReveal
+            variant="fade"
+            delay={3}
+            as="p"
+            className="mt-5 text-[0.65rem] font-medium tracking-[0.3em] text-cream/45 uppercase"
+          >
+            No payment today · Early access · Leave anytime
+          </ScrollReveal>
+        </div>
+      </section>
+    </div>
   )
 }

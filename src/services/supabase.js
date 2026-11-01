@@ -1,6 +1,6 @@
 /**
  * Shared Supabase config. The site works fully offline/local without it;
- * when the env vars are set, pre-orders, sign-ups, profiles, and orders
+ * when the env vars are set, waitlist entries, sign-ups, profiles, and orders
  * are synced to the backend.
  */
 export function getSupabaseConfig() {

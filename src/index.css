@@ -21,6 +21,11 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+}
+
+/* Clip sideways overflow on <html> only: overflow-x on <body> too would make
+   body a scroll container and silently break every position:sticky element. */
+html {
   overflow-x: hidden;
 }
 
@@ -359,4 +364,137 @@ html {
 @keyframes glass-drift {
   from { background-position: 0% 0%; }
   to { background-position: 100% 100%; }
+}
+
+/* ── liquid glass, clear edition: colorless glass with rainbow corner light ── */
+.liquid-glass-ink {
+  position: relative;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.14) 50%, rgba(255, 255, 255, 0.26) 100%);
+  backdrop-filter: blur(26px) saturate(1.6);
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  border: 1px solid transparent;
+  box-shadow:
+    inset 0 -1px 0 rgba(22, 38, 60, 0.06),
+    0 30px 80px rgba(23, 37, 60, 0.16);
+}
+/* rainbow ring tracing the rounded edge, covering the border itself */
+.liquid-glass-ink::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  padding: 3px;
+  background: conic-gradient(
+    from 210deg,
+    rgba(255, 110, 130, 0.4),
+    rgba(255, 190, 90, 0.36),
+    rgba(243, 238, 130, 0.32),
+    rgba(130, 230, 170, 0.36),
+    rgba(110, 195, 255, 0.44),
+    rgba(170, 140, 255, 0.42),
+    rgba(255, 130, 200, 0.38),
+    rgba(255, 110, 130, 0.4)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  filter: blur(1px);
+  animation: rainbow-hue-soft 16s linear infinite;
+}
+@keyframes rainbow-hue-soft {
+  from { filter: blur(1px) hue-rotate(0deg); }
+  to { filter: blur(1px) hue-rotate(360deg); }
+}
+/* soft rainbow arcs fading out of each corner */
+.liquid-glass-ink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 400px at 0% 0%,
+      rgba(255, 130, 150, 0.1) 0%, rgba(255, 200, 120, 0.09) 20%, rgba(250, 245, 160, 0.08) 34%,
+      rgba(150, 230, 180, 0.08) 48%, rgba(130, 200, 255, 0.09) 62%, rgba(185, 150, 255, 0.08) 74%,
+      transparent 90%),
+    radial-gradient(circle 400px at 100% 0%,
+      rgba(185, 150, 255, 0.09) 0%, rgba(130, 200, 255, 0.09) 20%, rgba(150, 230, 180, 0.08) 34%,
+      rgba(250, 245, 160, 0.08) 48%, rgba(255, 200, 120, 0.08) 62%, rgba(255, 130, 150, 0.08) 74%,
+      transparent 90%),
+    radial-gradient(circle 420px at 100% 100%,
+      rgba(255, 130, 150, 0.09) 0%, rgba(255, 200, 120, 0.08) 20%, rgba(250, 245, 160, 0.08) 34%,
+      rgba(150, 230, 180, 0.08) 48%, rgba(130, 200, 255, 0.09) 62%, rgba(185, 150, 255, 0.08) 74%,
+      transparent 90%),
+    radial-gradient(circle 420px at 0% 100%,
+      rgba(185, 150, 255, 0.08) 0%, rgba(130, 200, 255, 0.09) 20%, rgba(150, 230, 180, 0.08) 34%,
+      rgba(250, 245, 160, 0.08) 48%, rgba(255, 200, 120, 0.08) 62%, rgba(255, 130, 150, 0.09) 74%,
+      transparent 90%);
+  animation: rainbow-hue 16s linear infinite;
+}
+@keyframes rainbow-hue {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(360deg); }
+}
+
+/* ── shooting stars: small champagne streaks crossing the glass ── */
+.shooting-star {
+  position: absolute;
+  top: var(--top, 15%);
+  left: -8%;
+  width: 110px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.98));
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.95), 0 0 4px rgba(255, 255, 255, 1);
+  opacity: 0;
+  transform: rotate(9deg) scale(var(--scale, 1));
+  animation: star-streak var(--dur, 10s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+}
+@keyframes star-streak {
+  0% { transform: translate3d(0, 0, 0) rotate(9deg) scale(var(--scale, 1)); opacity: 0; }
+  3% { opacity: 0.9; }
+  14% { opacity: 0.9; }
+  20%, 100% { transform: translate3d(115vw, 18vw, 0) rotate(9deg) scale(var(--scale, 1)); opacity: 0; }
+}
+
+/* ── prism streaks: blurred rainbow reflections inside the glass ── */
+.prism-streak {
+  position: absolute;
+  top: -20%;
+  left: var(--left, 10%);
+  width: var(--width, 42%);
+  height: 140%;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 110, 110, 0.14) 18%,
+    rgba(255, 195, 90, 0.13) 32%,
+    rgba(250, 255, 150, 0.11) 44%,
+    rgba(130, 235, 170, 0.13) 56%,
+    rgba(115, 200, 255, 0.16) 68%,
+    rgba(195, 145, 255, 0.15) 82%,
+    transparent 100%
+  );
+  filter: blur(18px);
+  mix-blend-mode: screen;
+  opacity: var(--opacity, 0.7);
+  transform: rotate(16deg);
+  animation: prism-sway var(--dur, 18s) ease-in-out infinite alternate;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes prism-sway {
+  from { transform: rotate(16deg) translateX(-7%); opacity: calc(var(--opacity, 0.7) * 0.65); }
+  to { transform: rotate(16deg) translateX(9%); opacity: var(--opacity, 0.7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shooting-star { display: none; }
+  .liquid-glass-ink::before,
+  .liquid-glass-ink::after,
+  .prism-streak { animation: none; }
 }

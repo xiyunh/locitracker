@@ -9,7 +9,7 @@ export const legalPages = {
     emphasis: 'Conditions',
     updated: 'September 10, 2026',
     intro:
-      'These terms govern your use of the Loci website and your purchase of Loci products. By browsing the site, joining a pre-order list, or placing an order, you agree to them.',
+      'These terms govern your use of the Loci website and your purchase of Loci products. By browsing the site, joining the waitlist, or placing an order, you agree to them.',
     sections: [
       {
         title: 'Using this site',
@@ -21,20 +21,20 @@ export const legalPages = {
       {
         title: 'Products & pricing',
         body: [
-          'Loci Sticker trackers and accessories are described as accurately as we can, including the confirmed specifications of under 2 mm thickness and up to 18 months of battery life under typical use. Battery life varies with settings, usage, and environment.',
+          'Loci Sticker trackers and accessories are described as accurately as we can, including the specifications of 40 mm by 40 mm, under 2 mm thickness, and an estimated 22 months of battery life under typical use. Battery life varies with settings, usage, and environment.',
           'Prices are listed in U.S. dollars and exclude taxes and any applicable duties, which are calculated at checkout. We may change prices at any time; changes never affect orders already placed.',
           'Occasionally a product may be mispriced or out of stock despite appearing available. If that affects your order, we will contact you with the option to confirm at the corrected price or cancel for a full refund.',
         ],
       },
       {
-        title: 'Pre-orders',
+        title: 'The waitlist',
         body: [
-          'Joining a pre-order list reserves your place for an upcoming drop. No payment is collected when you join.',
+          'Joining the waitlist reserves your place for an upcoming drop. No payment is collected when you join.',
           {
             list: [
               'We will email you before the drop ships with a checkout link and final pricing.',
-              'You can leave a pre-order list at any time before checkout, with no obligation.',
-              'Pre-order positions are personal to you and cannot be sold or transferred.',
+              'You can leave the waitlist at any time before checkout, with no obligation.',
+              'Waitlist positions are personal to you and cannot be sold or transferred.',
             ],
           },
         ],
@@ -56,7 +56,8 @@ export const legalPages = {
         title: 'Governing law & contact',
         body: [
           'These terms are governed by the laws of the State of Oregon, USA, without regard to conflict-of-law rules. Disputes will be handled in the state or federal courts located in Multnomah County, Oregon.',
-          'Questions about these terms: support@loci-tracker.com.',
+          'Loci is operated by [LEGAL ENTITY NAME], [REGISTERED BUSINESS ADDRESS] — replace with your registered company details before launch.',
+          'Questions about these terms: info@locitracker.com.',
         ],
       },
     ],
@@ -76,7 +77,7 @@ export const legalPages = {
           {
             list: [
               'Order details — your name, email, and shipping address when you place an order.',
-              'Pre-order interest — your name, email, and chosen product when you join a pre-order list.',
+              'Waitlist interest — your name, email, and chosen product when you join the waitlist.',
               'Newsletter signup — your email address, only if you subscribe.',
               'Support messages — whatever you choose to include when you contact us.',
             ],
@@ -97,7 +98,7 @@ export const legalPages = {
           {
             list: [
               'Your bag, account profile, addresses, and order history are stored locally in your own browser. Clearing your browser data removes them.',
-              'Pre-order submissions are saved in your browser and, where configured, backed up to our order database so we can contact you when a drop ships.',
+              'Waitlist submissions are saved in your browser and, where configured, backed up to our order database so we can contact you when a drop ships.',
               'Payments are processed by our payment providers (such as the card networks, Apple Pay, Google Pay, PayPal, and Affirm). We never see or store full card numbers.',
             ],
           },
@@ -106,7 +107,7 @@ export const legalPages = {
       {
         title: 'How we use it',
         body: [
-          'We use your information to fulfil orders, notify you about pre-orders you joined, respond to support requests, and — only if you subscribed — send occasional product news. Every marketing email includes a one-click unsubscribe.',
+          'We use your information to fulfil orders, notify you about the waitlist you joined, respond to support requests, and — only if you subscribed — send occasional product news. Every marketing email includes a one-click unsubscribe.',
         ],
       },
       {
@@ -119,7 +120,7 @@ export const legalPages = {
         title: 'Your rights',
         body: [
           'You can ask us at any time to access, correct, or delete the personal information we hold about you, or to stop emailing you. Depending on where you live, you may have additional rights under laws such as the GDPR or the California Consumer Privacy Act — we honor requests from everyone, regardless of location.',
-          'To exercise any of these rights, email support@loci-tracker.com. We respond within 30 days.',
+          'To exercise any of these rights, email info@locitracker.com. We respond within 30 days.',
         ],
       },
       {
@@ -179,7 +180,7 @@ export const legalPages = {
       {
         title: 'Feedback',
         body: [
-          'If anything on this site is hard to use with your setup, we genuinely want to know. Email support@loci-tracker.com with “Accessibility” in the subject line and a description of the issue and your assistive technology. We aim to respond within two business days and to fix verified barriers promptly.',
+          'If anything on this site is hard to use with your setup, we genuinely want to know. Email info@locitracker.com with “Accessibility” in the subject line and a description of the issue and your assistive technology. We aim to respond within two business days and to fix verified barriers promptly.',
         ],
       },
     ],
@@ -200,9 +201,9 @@ export const legalPages = {
         ],
       },
       {
-        title: 'Pre-orders',
+        title: 'The waitlist',
         body: [
-          'Joining a pre-order list costs nothing, so there is nothing to refund — you can leave a list at any time before checkout. Once a pre-order converts to a paid order, the standard 30-day window applies from delivery.',
+          'Joining the waitlist costs nothing, so there is nothing to refund — you can leave it at any time before checkout. Once a waitlist spot converts to a paid order, the standard 30-day window applies from delivery.',
         ],
       },
       {
@@ -210,7 +211,7 @@ export const legalPages = {
         body: [
           {
             list: [
-              'Email support@loci-tracker.com with your order number (it looks like LOCI-XXXXXX).',
+              'Email info@locitracker.com with your order number (it looks like LOCI-XXXXXX).',
               'We reply within two business days with a prepaid return label for U.S. orders. International customers ship at cost, refunded if the item is faulty.',
               'Drop the package off. Once it reaches us, your refund is issued to the original payment method.',
             ],
@@ -226,7 +227,7 @@ export const legalPages = {
       {
         title: 'Exchanges & warranty',
         body: [
-          'Want a different finish or pack size? The fastest route is a return plus a new order — pre-order and stock permitting, we will prioritize the replacement. Faults appearing after 30 days are covered by the one-year limited warranty described in our Terms & Conditions.',
+          'Want a different finish or pack size? The fastest route is a return plus a new order — waitlist and stock permitting, we will prioritize the replacement. Faults appearing after 30 days are covered by the one-year limited warranty described in our Terms & Conditions.',
         ],
       },
     ],

@@ -1,6 +1,6 @@
 # Loci — Sticker Tracker
 
-Marketing and pre-order site for **Loci**, a sticker-thin item tracker that sticks to keys,
+Marketing and waitlist site for **Loci**, a sticker-thin item tracker that sticks to keys,
 passports, and bags — the world's first sticker tracker. Dark navy/gold design with
 **#11385b** as the primary brand color.
 
@@ -22,8 +22,8 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## Sections
 
-- Announcement bar (pre order now)
-- Sticky navigation (with Pre Order button)
+- Announcement bar (join the waitlist)
+- Sticky navigation (with Join Waitlist button)
 - Hero with interactive 3D sticker scene
 - Product showcase (Single, 4 Pack, accessories)
 - Device + app headline
@@ -34,9 +34,9 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 - Payment options
 - Newsletter footer
 
-## Pre-order
+## Waitlist
 
-`/pre-order` collects name, email, and product (`?product=<catalog id>` pre-selects one).
+`/waitlist` collects name, email, and product (`?product=<catalog id>` pre-selects one).
 Submissions are always saved in browser `localStorage` (`loci-preorder-submissions`) and can be
 exported as an Excel-compatible CSV from the confirmation screen.
 

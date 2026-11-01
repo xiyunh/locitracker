@@ -1,15 +1,15 @@
-import { Routes, Route } from 'react-router-dom'
+import { Navigate, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import ShopPage from './pages/ShopPage'
 import FeaturesPage from './pages/FeaturesPage'
 import ExperiencePage from './pages/ExperiencePage'
 import PreOrderPage from './pages/PreOrderPage'
-import CartPage from './pages/CartPage'
 import LegalPage from './pages/LegalPage'
 import AccountPage from './pages/AccountPage'
 import JoinPage from './pages/JoinPage'
 import VerifiedPage from './pages/VerifiedPage'
+import ContactPage from './pages/ContactPage'
 import BlogPage from './pages/BlogPage'
 import EnterprisePage from './pages/EnterprisePage'
 import ProductPage from './pages/ProductPage'
@@ -27,8 +27,9 @@ export default function App() {
           <Route path="blog" element={<BlogPage />} />
           <Route path="experience" element={<ExperiencePage />} />
           <Route path="enterprise" element={<EnterprisePage />} />
-          <Route path="pre-order" element={<PreOrderPage />} />
-          <Route path="cart" element={<CartPage />} />
+          <Route path="waitlist" element={<PreOrderPage />} />
+          <Route path="pre-order" element={<Navigate to="/waitlist" replace />} />
+          <Route path="cart" element={<Navigate to="/waitlist" replace />} />
           <Route path="terms" element={<LegalPage page="terms" />} />
           <Route path="privacy" element={<LegalPage page="privacy" />} />
           <Route path="accessibility" element={<LegalPage page="accessibility" />} />
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="account" element={<AccountPage />} />
           <Route path="join" element={<JoinPage />} />
           <Route path="verified" element={<VerifiedPage />} />
+          <Route path="contact" element={<ContactPage />} />
         </Route>
       </Routes>
     </StoreProvider>

@@ -12,7 +12,7 @@ const columns = [
     links: [
       { label: 'Loci Sticker', to: '/product/loci-sticker-single' },
       { label: 'Loci Sticker 4-Pack', to: '/product/loci-sticker-four-pack' },
-      { label: 'Pre order', to: '/pre-order' },
+      { label: 'Waitlist', to: '/waitlist' },
     ],
   },
   {
@@ -22,17 +22,15 @@ const columns = [
       { label: 'Sticks to anything', to: '/features' },
       { label: 'The Loci network', to: '/features' },
       { label: 'A day with Loci', to: '/experience' },
-      { label: 'Blog', to: '/blog' },
       { label: 'For enterprises', to: '/enterprise' },
     ],
   },
   {
     title: 'Support',
     links: [
-      { label: 'Your bag', to: '/cart' },
       { label: 'Account', to: '/account' },
       { label: 'Shipping & Returns', to: '/returns' },
-      { label: 'Contact Us', href: '#' },
+      { label: 'Contact Us', to: '/contact' },
     ],
   },
 ]

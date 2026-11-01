@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight, Plus } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
 import StickerTag from './StickerTag'
 import { Button } from './ui'
 import { badgeClass } from '../lib/ui'
-import { catalog, formatCurrency } from '../data/catalog'
-import { useStore } from '../context/store'
+import { catalog } from '../data/catalog'
 
-function ProductCard({ product, index, onAdd }) {
+function ProductCard({ product, index }) {
   return (
     <ScrollReveal
       as="article"
@@ -56,22 +55,14 @@ function ProductCard({ product, index, onAdd }) {
         )}
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6">
-        <span className="text-2xl font-medium text-cream">{formatCurrency(product.price)}</span>
+      <div className="flex flex-wrap items-center justify-end gap-4 border-t border-white/10 pt-6">
         <div className="flex flex-wrap items-center gap-3">
-          <Link
-            to={`/pre-order?product=${product.id}`}
-            className="inline-flex items-center gap-1.5 text-xs tracking-widest text-gold uppercase transition-colors hover:text-gold-light"
-          >
-            Pre order
-            <ArrowRight size={12} />
-          </Link>
           <Button to={`/product/${product.id}`} variant="secondary" size="sm">
             View
           </Button>
-          <Button size="sm" onClick={() => onAdd(product.id)}>
-            <Plus size={14} />
-            Add to bag
+          <Button to={`/waitlist?product=${product.id}`} size="sm">
+            Join waitlist
+            <ArrowRight size={14} />
           </Button>
         </div>
       </div>
@@ -80,7 +71,6 @@ function ProductCard({ product, index, onAdd }) {
 }
 
 export default function Products() {
-  const { addToCart } = useStore()
   const products = catalog.filter((product) => product.category === 'Tracker')
 
   return (
@@ -88,7 +78,7 @@ export default function Products() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid gap-6 md:grid-cols-2">
           {products.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} onAdd={addToCart} />
+            <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
 

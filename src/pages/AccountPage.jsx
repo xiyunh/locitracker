@@ -17,7 +17,6 @@ import PageHeader from '../components/PageHeader'
 import ScrollReveal from '../components/ScrollReveal'
 import { Button, Eyebrow, Field, Panel } from '../components/ui'
 import { badgeClass, tileClass } from '../lib/ui'
-import { formatCurrency } from '../data/catalog'
 import { useStore } from '../context/store'
 
 const emptyAddress = {
@@ -35,23 +34,16 @@ export default function AccountPage() {
   const {
     account,
     addAddress,
-    cartItems,
     defaultAddress,
-    itemCount,
     profile,
     removeAddress,
     setDefaultAddress,
     shippingOptions,
-    signIn,
     signOut,
     updateContact,
     updatePreferences,
     updateShippingMethod,
   } = useStore()
-  const [signInForm, setSignInForm] = useState({
-    name: account?.name ?? '',
-    email: account?.email ?? '',
-  })
   const [contactForm, setContactForm] = useState(profile.contact)
   const [addressForm, setAddressForm] = useState(emptyAddress)
   const [savedContact, setSavedContact] = useState(false)
@@ -70,7 +62,7 @@ export default function AccountPage() {
         label="Account"
         title="Your"
         emphasis="account"
-        subtitle="Save your bag, addresses, and pre-orders in one place."
+        subtitle="Save your bag, addresses, and waitlist in one place."
       />
 
       <section className="mx-3 mb-6 rounded-[2rem] bg-white py-16 md:mx-6 lg:py-24">
@@ -95,15 +87,9 @@ export default function AccountPage() {
                     <p className="text-xs text-cream/50">Email</p>
                     <p className="mt-1 text-sm text-cream">{account.email}</p>
                   </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className={tileClass}>
-                      <p className="text-xs text-cream/50">Cart items</p>
-                      <p className="mt-1 text-xl text-cream">{itemCount}</p>
-                    </div>
-                    <div className={tileClass}>
-                      <p className="text-xs text-cream/50">Orders</p>
-                      <p className="mt-1 text-xl text-cream">{profile.orderHistory.length}</p>
-                    </div>
+                  <div className={tileClass}>
+                    <p className="text-xs text-cream/50">Orders</p>
+                    <p className="mt-1 text-xl text-cream">{profile.orderHistory.length}</p>
                   </div>
                   <button
                     type="button"
@@ -115,82 +101,32 @@ export default function AccountPage() {
                   </button>
                 </div>
               ) : (
-                <form
-                  className="mt-8 space-y-4"
-                  onSubmit={(event) => {
-                    event.preventDefault()
-                    const data = new FormData(event.currentTarget)
-                    signIn({
-                      name: data.get('name'),
-                      email: data.get('email'),
-                    })
-                    setContactForm({
-                      ...contactForm,
-                      name: data.get('name'),
-                      email: data.get('email'),
-                    })
-                  }}
-                >
-                  <Field
-                    id="account-name"
-                    name="name"
-                    label="Name"
-                    value={signInForm.name}
-                    onChange={(event) => setSignInForm({ ...signInForm, name: event.target.value })}
-                    required
-                    placeholder="Your name"
-                  />
-                  <Field
-                    id="account-email"
-                    name="email"
-                    label="Email"
-                    type="email"
-                    value={signInForm.email}
-                    onChange={(event) =>
-                      setSignInForm({ ...signInForm, email: event.target.value })
-                    }
-                    required
-                    placeholder="you@example.com"
-                  />
-                  <Button type="submit" className="w-full">
-                    Create account
+                <div className="mt-8 space-y-4">
+                  <p className="text-sm leading-relaxed text-cream/65">
+                    Sign in with your Loci account — the same one you use in the Loci app.
+                  </p>
+                  <Button to="/join" className="w-full">
+                    Sign in or create account
                     <ArrowRight size={16} />
                   </Button>
-                  <p className="text-xs leading-relaxed text-cream-muted">
-                    New or returning, this is the door — enter the same name and email to pick up where you left off.
-                  </p>
-                </form>
+                </div>
               )}
             </Panel>
 
             <Panel className="mt-6">
               <h3 className="flex items-center gap-2 font-display text-2xl font-medium text-cream">
                 <Package size={19} strokeWidth={1.5} />
-                Current cart
+                Waitlist
               </h3>
-              <div className="mt-5 space-y-3">
-                {cartItems.length ? (
-                  cartItems.map((item) => (
-                    <div key={item.id} className="flex justify-between gap-4 text-sm">
-                      <span className="text-cream/70">
-                        {item.quantity}x {item.name} {item.variant}
-                      </span>
-                      <span className="text-gold-light">
-                        {formatCurrency(item.price * item.quantity)}
-                      </span>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-sm leading-relaxed text-cream/60">
-                    Cart items will appear here as shoppers build their setup.
-                  </p>
-                )}
-              </div>
+              <p className="mt-5 text-sm leading-relaxed text-cream/60">
+                Loci is in its waitlist phase — reserve a spot now and we will email you when
+                the first drop opens.
+              </p>
               <Link
-                to="/cart"
+                to="/waitlist"
                 className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-gold-light transition-colors hover:text-cream"
               >
-                Review cart
+                Join the waitlist
                 <ArrowRight size={15} />
               </Link>
             </Panel>
@@ -410,9 +346,6 @@ export default function AccountPage() {
                           <span className="text-xs text-cream/55">{option.detail}</span>
                         </span>
                         <span className="flex items-center gap-3">
-                          <span className="text-sm text-gold-light">
-                            {option.price ? formatCurrency(option.price) : 'Free'}
-                          </span>
                           <input
                             type="radio"
                             name="shipping"
@@ -473,9 +406,6 @@ export default function AccountPage() {
                               {new Date(order.placedAt).toLocaleDateString()} · {order.status}
                             </p>
                           </div>
-                          <span className="text-sm text-gold-light">
-                            {formatCurrency(order.totals.total)}
-                          </span>
                         </div>
                         <div className="mt-3 text-xs leading-relaxed text-cream/55">
                           {order.items.map((item) => `${item.quantity}x ${item.name} ${item.variant}`).join(', ')}

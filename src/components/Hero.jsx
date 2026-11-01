@@ -6,10 +6,10 @@ import { Button } from './ui'
 
 // side notes — real dimensions, nothing invented
 const notes = [
-  ['85.6 mm', 'card width'],
-  ['54 mm', 'card height'],
+  ['40 mm', 'card width'],
+  ['40 mm', 'card height'],
   ['<2 mm', 'profile'],
-  ['18 mo', 'battery'],
+  ['22 mo', 'battery'],
   ['1 tap', 'to pair'],
 ]
 
@@ -66,8 +66,8 @@ export default function Hero() {
           </motion.p>
 
           <motion.div {...reveal(0.5)} className="mt-10 flex flex-wrap items-center gap-6">
-            <Button to="/pre-order" size="lg" className="group min-w-48 text-base">
-              Pre Order
+            <Button to="/waitlist" size="lg" className="group min-w-48 text-base">
+              Join the Waitlist
               <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
             </Button>
             <Link

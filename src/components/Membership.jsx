@@ -7,7 +7,6 @@ const featuredProducts = [
     kicker: 'single',
     name: 'Loci Sticker',
     detail: 'For keys, passports, wallets, and everyday carry.',
-    price: '$29',
     to: '/product/loci-sticker-single',
     image: productImages['loci-sticker-single'],
   },
@@ -15,18 +14,15 @@ const featuredProducts = [
     kicker: 'four pack',
     name: 'Loci Sticker 4-Pack',
     detail: 'Cover luggage, bags, remotes, and the stuff you share.',
-    price: '$99',
-    badge: 'Save $17',
     to: '/product/loci-sticker-four-pack',
     image: productImages['loci-sticker-four-pack'],
   },
   {
     kicker: 'reserve',
-    name: 'Pre Order',
-    detail: 'Reserve your place in the first drop. No payment today.',
-    price: 'From $29',
-    cta: 'Reserve',
-    to: '/pre-order',
+    name: 'Waitlist',
+    detail: 'Join the waitlist for the first drop. No payment today.',
+    cta: 'Join',
+    to: '/waitlist',
     image: productImages['pre-order'],
   },
 ]
@@ -65,7 +61,6 @@ export default function Membership() {
 
                 <span className="flex items-baseline justify-between gap-4">
                   <span className="text-sm font-bold tracking-[0.08em] text-cream uppercase">{product.name}</span>
-                  <span className="text-sm font-semibold text-cream">{product.price}</span>
                 </span>
                 <span className="mt-1 text-sm text-cream-muted">{product.detail}</span>
                 <span className="mt-4 inline-flex items-center gap-1.5 text-xs tracking-widest text-cream/60 uppercase transition-colors group-hover:text-cream">

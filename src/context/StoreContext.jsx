@@ -3,6 +3,7 @@ import { catalog, getProductById } from '../data/catalog'
 import { StoreContext } from './store'
 import { shopperApi } from '../services/shopperApi'
 import { saveOrderToBackend, signUpShopper, syncShopperProfile } from '../services/backend'
+import { accountFromUser, ensureProfileRow, supabase } from '../services/supabaseClient'
 
 export function StoreProvider({ children }) {
   const [snapshot] = useState(() => shopperApi.loadSnapshot())
@@ -35,6 +36,32 @@ export function StoreProvider({ children }) {
       return next
     })
   }
+
+  // Real auth: mirror the Supabase session (shared with the Loci app) into
+  // the local account, and keep public.profiles in step.
+  useEffect(() => {
+    if (!supabase) return undefined
+
+    supabase.auth.getSession().then(({ data }) => {
+      const user = data.session?.user
+      if (user) {
+        setAccount(accountFromUser(user))
+        ensureProfileRow(user)
+      }
+    })
+
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) {
+        setAccount(accountFromUser(session.user))
+        if (event === 'SIGNED_IN') ensureProfileRow(session.user)
+      } else if (event === 'SIGNED_OUT') {
+        setAccount(null)
+      }
+    })
+
+    return () => sub.subscription.unsubscribe()
+     
+  }, [])
 
   // Keep the backend copy of the shopper profile fresh (no-op without Supabase config).
   useEffect(() => {
@@ -100,40 +127,72 @@ export function StoreProvider({ children }) {
     clearCart() {
       setCart([])
     },
-    signIn(profile) {
+    authMode: supabase ? 'supabase' : 'local',
+    async signUp({ name, email, password }) {
+      if (!supabase) {
+        this.signInLocal({ name, email })
+        return { ok: true, needsConfirmation: false }
+      }
+      const { data, error } = await supabase.auth.signUp({
+        email: email.trim().toLowerCase(),
+        password,
+        options: {
+          data: { full_name: name.trim() },
+          emailRedirectTo: `${window.location.origin}/verified`,
+        },
+      })
+      if (error) return { ok: false, error: error.message }
+      signUpShopper({ name, email }).then((result) => {
+        if (result?.emailSent) {
+          setToast({
+            id: Date.now(),
+            title: `Welcome, ${name.trim()}!`,
+            message: 'A welcome email is on its way to your inbox.',
+          })
+        }
+      })
+      return { ok: true, needsConfirmation: !data.session }
+    },
+    async signInWithPassword({ email, password }) {
+      if (!supabase) return { ok: false, error: 'Sign-in is not configured yet.' }
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email.trim().toLowerCase(),
+        password,
+      })
+      return error ? { ok: false, error: error.message } : { ok: true }
+    },
+    async resetPassword(email) {
+      if (!supabase) return { ok: false, error: 'Sign-in is not configured yet.' }
+      const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
+        redirectTo: `${window.location.origin}/account`,
+      })
+      return error ? { ok: false, error: error.message } : { ok: true }
+    },
+    signInLocal(profile) {
       const account = {
         name: profile.name.trim(),
         email: profile.email.trim(),
         joinedAt: new Date().toISOString(),
       }
-      setAccount({
-        ...account,
-      })
+      setAccount({ ...account })
       signUpShopper(account).then((result) => {
-        if (result?.emailSent) {
+        if (result?.created || result?.emailSent) {
           setToast({
             id: Date.now(),
             title: `Welcome, ${account.name}!`,
-            message: 'A welcome email is on its way to your inbox.',
-          })
-        } else if (result?.created) {
-          setToast({
-            id: Date.now(),
-            title: `Welcome, ${account.name}!`,
-            message: 'Your Loci profile has been created.',
+            message: result.emailSent
+              ? 'A welcome email is on its way to your inbox.'
+              : 'Your Loci profile has been created.',
           })
         }
       })
       setProfile((current) => ({
         ...current,
-        contact: {
-          ...current.contact,
-          name: account.name,
-          email: account.email,
-        },
+        contact: { ...current.contact, name: account.name, email: account.email },
       }))
     },
     signOut() {
+      if (supabase) supabase.auth.signOut()
       setAccount(null)
     },
     updateContact(contact) {

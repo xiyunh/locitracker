@@ -1,5 +1,5 @@
-import appHistory from '../assets/app-history.png'
-import appProfile from '../assets/app-profile.png'
+import appNearby from '../assets/app-screen-nearby.webp'
+import appMap from '../assets/app-screen-map.webp'
 import ScrollReveal from './ScrollReveal'
 import { Eyebrow } from './ui'
 
@@ -56,15 +56,15 @@ function AppMockup() {
   return (
     <ScrollReveal variant="right" delay={1} className="relative mx-auto w-full max-w-sm">
       <img
-        src={appProfile}
-        alt="Loci app — profile and settings"
-        className="absolute -right-4 top-10 hidden w-52 -rotate-6 rounded-[1.6rem] border border-white/15 opacity-70 shadow-2xl shadow-black/20 sm:block"
+        src={appNearby}
+        alt="Loci app — Find Nearby guidance pointing to a tag within reach"
+        className="absolute -right-2 top-8 hidden w-56 -rotate-6 rounded-[1.8rem] border border-white/15 opacity-80 shadow-2xl shadow-black/25 sm:block"
         loading="lazy"
       />
       <img
-        src={appHistory}
-        alt="Loci app — sighting history and the sightings dial"
-        className="relative z-10 mx-auto w-64 rounded-[1.8rem] border border-white/15 shadow-2xl shadow-black/25"
+        src={appMap}
+        alt="Loci app — map of your tags with last-seen times"
+        className="relative z-10 mr-auto ml-0 w-64 rounded-[1.8rem] border border-white/15 shadow-2xl shadow-black/30 sm:ml-6"
         loading="lazy"
       />
       <p className="relative z-10 mt-5 text-center text-[0.6rem] tracking-[0.3em] text-cream-muted uppercase">

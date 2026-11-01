@@ -1,11 +1,13 @@
 // Records a shopper sign-up and sends the welcome email (via Resend).
 // Deploy:  supabase functions deploy signup --no-verify-jwt   (or paste in the dashboard editor, Verify JWT off)
 // Secrets: SB_SECRET_KEY (your sb_secret_... key — required on new-API-key projects),
-//          RESEND_API_KEY, WELCOME_FROM="Loci <hello@yourdomain.com>", SITE_URL=https://yoursite.com
+//          RESEND_API_KEY, WELCOME_FROM="Loci <info@locitracker.com>", SITE_URL=https://locitracker.com
 import { createClient } from "npm:@supabase/supabase-js@2";
 
+const allowedOrigin = Deno.env.get("ALLOWED_ORIGIN") ?? "*";
+
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Origin": allowedOrigin,
   "Access-Control-Allow-Headers": "authorization, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
@@ -16,7 +18,17 @@ const json = (body: unknown, status = 200) =>
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 
-function welcomeHtml(name: string, siteUrl: string) {
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function welcomeHtml(rawName: string, siteUrl: string) {
+  const name = escapeHtml(rawName);
   return `<!doctype html>
 <html><body style="margin:0;padding:0;background:#071018;font-family:'Helvetica Neue',Arial,sans-serif;">
   <div style="max-width:560px;margin:0 auto;padding:48px 28px;color:#f5f0e8;">
@@ -27,14 +39,18 @@ function welcomeHtml(name: string, siteUrl: string) {
     <p style="font-size:15px;line-height:1.7;color:#c8ccd4;margin:18px 0 0;">
       Your Loci profile is ready. You now get early word on drops, order tracking,
       and faster checkout for the world&rsquo;s first sticker tracker &mdash; under
-      1&nbsp;mm thick, with 18 months of battery life.
+      2&nbsp;mm thick, with 22 months of battery life.
     </p>
     <a href="${siteUrl}/shop" style="display:inline-block;margin:28px 0 0;background:#f5f0e8;color:#11385b;text-decoration:none;font-size:13px;letter-spacing:1px;padding:14px 26px;border-radius:6px;font-weight:600;">
       SHOP LOCI
     </a>
     <p style="font-size:12px;line-height:1.6;color:#6b7683;margin:36px 0 0;border-top:1px solid #152a3d;padding-top:18px;">
-      You are receiving this one-time email because this address was used to create
-      a Loci shopper profile. &copy; 2026 Loci &mdash; the world&rsquo;s first sticker tracker.
+      You are receiving this one-time email because this address was used to create a
+      Loci shopper profile. If this wasn&rsquo;t you, you can ignore this email, or reply
+      &ldquo;unsubscribe&rdquo; and we will remove the address. Questions? Write to
+      <a href="mailto:info@locitracker.com" style="color:#9aa6b2;">info@locitracker.com</a>.<br />
+      &copy; 2026 Loci &mdash; the world&rsquo;s first sticker tracker.<br />
+      Loci &middot; [REGISTERED BUSINESS ADDRESS &mdash; replace before launch]
     </p>
   </div>
 </body></html>`;
@@ -47,7 +63,7 @@ Deno.serve(async (req) => {
   let name = "", email = "";
   try {
     const body = await req.json();
-    name = String(body.name ?? "").trim().slice(0, 120);
+    name = String(body.name ?? "").replace(/[\r\n\t\u0000-\u001f]/g, " ").trim().slice(0, 120);
     email = String(body.email ?? "").trim().toLowerCase();
   } catch {
     return json({ error: "invalid body" }, 400);
@@ -61,10 +77,22 @@ Deno.serve(async (req) => {
   if (!secretKey) return json({ error: "server key not configured" }, 500);
   const supabase = createClient(Deno.env.get("SUPABASE_URL")!, secretKey);
 
+  // Global throttle: cap sign-up volume so the endpoint cannot be used to
+  // flood the table or burn the email quota.
+  const minuteAgo = new Date(Date.now() - 60_000).toISOString();
+  const { count: recent } = await supabase
+    .from("shoppers")
+    .select("email", { count: "exact", head: true })
+    .gte("created_at", minuteAgo);
+  if ((recent ?? 0) > 30) {
+    return json({ error: "too many sign-ups right now, try again shortly" }, 429);
+  }
+
   const { data: existing, error: selectError } = await supabase
     .from("shoppers").select("email").eq("email", email).maybeSingle();
   if (selectError) {
-    return json({ error: "lookup failed", detail: selectError.message, v: 2 }, 500);
+    console.error("signup lookup failed:", selectError.message);
+    return json({ error: "lookup failed" }, 500);
   }
 
   const created = !existing;
@@ -72,7 +100,8 @@ Deno.serve(async (req) => {
     const { error: insertError } = await supabase
       .from("shoppers").insert({ name, email });
     if (insertError) {
-      return json({ error: "insert failed", detail: insertError.message, v: 2 }, 500);
+      console.error("signup insert failed:", insertError.message);
+      return json({ error: "insert failed" }, 500);
     }
   }
 
@@ -80,7 +109,7 @@ Deno.serve(async (req) => {
   let emailSent = false;
   const resendKey = Deno.env.get("RESEND_API_KEY");
   if (created && resendKey) {
-    const siteUrl = Deno.env.get("SITE_URL") ?? "https://loci-tracker.com";
+    const siteUrl = Deno.env.get("SITE_URL") ?? "https://locitracker.com";
     const from = Deno.env.get("WELCOME_FROM") ?? "Loci <onboarding@resend.dev>";
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -88,6 +117,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         from,
         to: [email],
+        reply_to: Deno.env.get("REPLY_TO") ?? "info@locitracker.com",
         subject: "Welcome to Loci — find anything",
         html: welcomeHtml(name, siteUrl),
       }),
@@ -100,5 +130,5 @@ Deno.serve(async (req) => {
     }
   }
 
-  return json({ ok: true, created, emailSent, v: 2 });
+  return json({ ok: true, created, emailSent, v: 3 });
 });

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X, ShoppingBag, ChevronDown, ArrowRight, UserRound } from 'lucide-react'
+import { Menu, X, ChevronDown, ArrowRight, UserRound } from 'lucide-react'
 import { navItems } from '../data/navMenu'
 import BrandLogo from './BrandLogo'
 import StickerTag from './StickerTag'
@@ -188,7 +188,7 @@ function MobileNavSection({ item, onNavigate }) {
 
 export default function Navbar() {
   const location = useLocation()
-  const { account, itemCount } = useStore()
+  const { account } = useStore()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState(null)
@@ -288,16 +288,8 @@ export default function Navbar() {
           >
             <UserRound size={20} strokeWidth={1.5} />
           </Link>
-          <Link to="/cart" aria-label="Cart" className={`${iconButtonClass} relative`}>
-            <ShoppingBag size={20} strokeWidth={1.5} />
-            {itemCount > 0 && (
-              <span className="absolute top-0.5 right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[0.65rem] leading-none font-medium text-brand">
-                {itemCount}
-              </span>
-            )}
-          </Link>
-          <Link to="/pre-order" className={buttonClass('primary', 'sm', 'ml-2 hidden sm:inline-flex')}>
-            Pre Order
+          <Link to="/waitlist" className={buttonClass('primary', 'sm', 'ml-2 hidden sm:inline-flex')}>
+            Join Waitlist
           </Link>
           <button
             type="button"
@@ -319,8 +311,8 @@ export default function Navbar() {
               <MobileNavSection key={item.label} item={item} onNavigate={closeMobile} />
             ))}
           </ul>
-          <Link to="/pre-order" onClick={closeMobile} className={buttonClass('primary', 'md', 'my-4 w-full')}>
-            Pre Order
+          <Link to="/waitlist" onClick={closeMobile} className={buttonClass('primary', 'md', 'my-4 w-full')}>
+            Join Waitlist
           </Link>
         </div>
       )}

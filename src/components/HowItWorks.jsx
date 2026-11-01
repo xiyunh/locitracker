@@ -1,22 +1,30 @@
 import { ArrowRight } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
+import Placeholder from './Placeholder'
 import { Button, SectionHeading } from './ui'
 
 export default function HowItWorks() {
   return (
-    <section className="border-t border-white/5 bg-charcoal py-24 lg:py-32">
+    <section className="bg-gradient-to-b from-transparent via-[#d9e0ee]/80 to-transparent py-20 lg:py-28">
       <div className="mx-auto max-w-5xl px-6 text-center lg:px-10">
         <SectionHeading
           align="center"
           eyebrow="Simple setup"
           title={
             <>
-              Stick it on. Track it down. <em className="text-gold-light">That&apos;s it.</em>
+              Stick it on. Track it down. <em className="text-gold">That&apos;s it.</em>
             </>
           }
           copy="Peel, stick, and hold Loci near your phone — it pairs in a tap. Then use the Loci app to see your item on a map, play a sound, or follow distance cues when it is close by."
         />
-        <div className="mt-14 grid gap-8 border-t border-white/10 pt-10 text-left sm:grid-cols-3">
+        <ScrollReveal variant="fade" delay={1} className="mt-12">
+          <Placeholder
+            label="Photo — three-frame sequence: peeling the sticker, pressing it onto a laptop sleeve, phone showing it paired"
+            aspect="aspect-[21/9]"
+          />
+        </ScrollReveal>
+
+        <div className="mt-12 grid gap-8 border-t border-cream/10 pt-10 text-left sm:grid-cols-3">
           {[
             ['01', 'Peel & stick', 'Onto keys, a passport, a remote, a bag.'],
             ['02', 'Tap to pair', 'Hold it near your phone. Done in a tap.'],

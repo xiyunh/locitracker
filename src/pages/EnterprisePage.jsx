@@ -64,6 +64,7 @@ export default function EnterprisePage() {
   return (
     <>
       <PageHeader
+        tone="ink"
         label="For enterprises"
         title="Loci for"
         emphasis="business."
